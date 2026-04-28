@@ -32,10 +32,39 @@
       overflow: hidden;
     }
 
-    * { -webkit-tap-highlight-color: transparent; }
+    * { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; }
     button { cursor: pointer; }
-    input { font-family: inherit; }
+    button:active { transform: scale(0.97); transition: transform 80ms ease; }
+
+    /* iOS: prevent input zoom on focus (font-size must be ≥16px). !important
+       beats any inline fontSize set on individual inputs. */
+    input, textarea, select {
+      font-family: inherit;
+      font-size: 16px !important;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* Smooth momentum scrolling on iOS for any scrollable region */
+    .phone-layer, .phone-layer * {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Safe-area helpers — components can use class .safe-bottom / .safe-top */
+    .safe-top    { padding-top:    env(safe-area-inset-top); }
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+    .safe-pad    { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+
     mark { color: inherit; }
+
+    /* Respect users who prefer less motion: disable infinite battery-draining anims */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
     /* ────────── Page transitions */
     .phone-layer { animation-fill-mode: both; }

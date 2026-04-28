@@ -77,7 +77,7 @@ window.BottomSheet = BottomSheet;
 // ─────────────────────────────────────────── Onboarding
 function Onboarding({ dark }) {
   const nav = window.useNav();
-  const { ONBOARDING } = window.APP_DATA;
+  const { ONBOARDING = [] } = window.APP_DATA || {};
   const [idx, setIdx] = React.useState(0);
   const startX = React.useRef(null);
   const trackRef = React.useRef(null);
@@ -168,7 +168,7 @@ function Onboarding({ dark }) {
 // ─────────────────────────────────────────── Search
 function Search({ dark }) {
   const nav = window.useNav();
-  const { PACKAGES, INSTRUCTORS, CATEGORIES } = window.APP_DATA;
+  const { PACKAGES = [], INSTRUCTORS = [], CATEGORIES = [] } = window.APP_DATA || {};
   const [q, setQ] = React.useState('');
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
@@ -291,7 +291,7 @@ function Search({ dark }) {
 // ─────────────────────────────────────────── Library (My Courses)
 function Library({ dark }) {
   const nav = window.useNav();
-  const { MY_COURSES, CERTIFICATES, ACHIEVEMENTS } = window.APP_DATA;
+  const { MY_COURSES = [], CERTIFICATES = [], ACHIEVEMENTS = [] } = window.APP_DATA || {};
   const [tab, setTab] = React.useState('inProgress');
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
@@ -421,7 +421,7 @@ function ProgressRing({ progress, size = 64 }) {
 // ─────────────────────────────────────────── Notifications
 function Notifications({ dark }) {
   const nav = window.useNav();
-  const { NOTIFICATIONS } = window.APP_DATA;
+  const { NOTIFICATIONS = [] } = window.APP_DATA || {};
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
   const pageBg = dark ? '#0A0A0C' : '#FAFAFA';
@@ -449,7 +449,7 @@ function Notifications({ dark }) {
               {items.map((n,i) => (
                 <Press
                   key={n.id}
-                  onClick={() => n.action && nav.push(n.action === 'package' ? 'package' : n.action === 'course' ? 'course' : n.action === 'live' ? 'live' : n.action === 'certificate' ? 'certificate' : 'home', n.action === 'certificate' ? window.APP_DATA.CERTIFICATES[0] : undefined)}
+                  onClick={() => n.action && nav.push(n.action === 'package' ? 'package' : n.action === 'course' ? 'course' : n.action === 'live' ? 'live' : n.action === 'certificate' ? 'certificate' : 'home', n.action === 'certificate' ? (window.APP_DATA?.CERTIFICATES || [])[0] : undefined)}
                   className="stagger-item"
                   style={{
                     display:'flex', gap:12, padding:14, background:cardBg, border:`1px solid ${n.unread?'rgba(11,95,176,0.25)':border}`, borderRadius:14,
@@ -615,7 +615,7 @@ function LessonPlayer({ dark }) {
 function Certificate({ dark, params }) {
   const nav = window.useNav();
   const [confetti, setConfetti] = React.useState(true);
-  const cert = params || window.APP_DATA.CERTIFICATES[0];
+  const cert = params || (window.APP_DATA?.CERTIFICATES || [])[0];
   React.useEffect(() => { const t = setTimeout(() => setConfetti(false), 3500); return () => clearTimeout(t); }, []);
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
@@ -698,7 +698,7 @@ function Certificate({ dark, params }) {
 // ─────────────────────────────────────────── Quiz
 function Quiz({ dark }) {
   const nav = window.useNav();
-  const { QUIZ_QUESTIONS } = window.APP_DATA;
+  const { QUIZ_QUESTIONS = [] } = window.APP_DATA || {};
   const [idx, setIdx] = React.useState(0);
   const [picked, setPicked] = React.useState(null);
   const [score, setScore] = React.useState(0);
@@ -733,7 +733,7 @@ function Quiz({ dark }) {
           <p style={{margin:'0 0 28px', fontSize:13, color:fg2, lineHeight:1.7}}>أجبت بشكل صحيح على {score} من {QUIZ_QUESTIONS.length} أسئلة</p>
           <div style={{display:'flex', gap:10, width:'100%'}}>
             <Press as="button" onClick={() => { setIdx(0); setPicked(null); setScore(0); setDone(false); }} style={{flex:1, padding:'14px', background:cardBg, color:fg, border:`1px solid ${border}`, borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>إعادة الاختبار</Press>
-            <Press as="button" onClick={() => passed ? nav.replace('certificate', window.APP_DATA.CERTIFICATES[0]) : nav.setTab('home')} style={{flex:1, padding:'14px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
+            <Press as="button" onClick={() => passed ? nav.replace('certificate', (window.APP_DATA?.CERTIFICATES || [])[0]) : nav.setTab('home')} style={{flex:1, padding:'14px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
               {passed?'استلم شهادتك':'العودة'}
             </Press>
           </div>
@@ -805,7 +805,7 @@ function Quiz({ dark }) {
 // ─────────────────────────────────────────── Live Session
 function LiveSession({ dark }) {
   const nav = window.useNav();
-  const { LIVE_SESSION } = window.APP_DATA;
+  const { LIVE_SESSION = {} } = window.APP_DATA || {};
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
   const pageBg = dark ? '#0A0A0C' : '#FAFAFA';

@@ -9,7 +9,14 @@
       "Bash(brew install *)",
       "Bash(gh repo *)",
       "Bash(lsof -i :8765)",
-      "Bash(bash start.command)"
+      "Bash(bash start.command)",
+      "Read(//private/tmp/**)",
+      "Bash(lsof -ti:8766)",
+      "Bash(xargs kill *)",
+      "Bash(ipconfig getifaddr *)",
+      "Bash(/usr/bin/python3 -m http.server 8766 --bind 0.0.0.0)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" \"http://192.168.6.60:8766/app.html\")",
+      "Bash(vercel ls *)"
     ]
   }
 }

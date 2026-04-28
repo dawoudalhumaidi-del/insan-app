@@ -49,7 +49,9 @@ function TabBar({ dark, activeTab }) {
   ];
   return (
     <div style={{
-      position:'absolute', bottom:0, left:0, right:0, height:84,
+      position:'absolute', bottom:0, left:0, right:0,
+      minHeight:84,
+      paddingBottom:'max(8px, env(safe-area-inset-bottom))',
       background: dark?'rgba(10,10,12,0.85)':'rgba(255,255,255,0.85)',
       backdropFilter:'blur(20px)', WebkitBackdropFilter:'blur(20px)',
       borderTop:`1px solid ${border}`, display:'flex',
@@ -76,7 +78,7 @@ v2.Home = function({ dark, params }) {
   const i18n = window.useT?.();
   const t = i18n?.t || ((k) => k);
   const [langOpen, setLangOpen] = React.useState(false);
-  const { PACKAGES, CATEGORIES } = window.APP_DATA;
+  const { PACKAGES = [], CATEGORIES = [] } = window.APP_DATA || {};
   const pageBg = dark ? '#0A0A0C' : '#FAFAFA';
   const cardBg = dark ? '#161618' : '#fff';
   const fg = dark ? '#fff' : '#0A0A0C';
@@ -286,7 +288,7 @@ v2.Home = function({ dark, params }) {
 
 v2.Package = function({ dark, params }) {
   const nav = window.useNav();
-  const { PACKAGES, COURSES_IN_AQEEDAH } = window.APP_DATA;
+  const { PACKAGES = [], COURSES_IN_AQEEDAH = [] } = window.APP_DATA || {};
   const p = PACKAGES.find(pk => pk.id === params?.id) || PACKAGES[0];
   const cardBg = dark ? '#161618' : '#fff';
   const fg = dark ? '#fff' : '#0A0A0C';
@@ -392,7 +394,7 @@ v2.Package = function({ dark, params }) {
 
 v2.Course = function({ dark, params }) {
   const nav = window.useNav();
-  const { LESSONS } = window.APP_DATA;
+  const { LESSONS = [] } = window.APP_DATA || {};
   const cardBg = dark ? '#161618' : '#fff';
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
@@ -636,7 +638,7 @@ v2.Profile = function({ dark }) {
 
 v2.Instructors = function({ dark }) {
   const nav = window.useNav();
-  const { INSTRUCTORS } = window.APP_DATA;
+  const { INSTRUCTORS = [] } = window.APP_DATA || {};
   const cardBg = dark ? '#161618' : '#fff';
   const fg = dark ? '#fff' : '#0A0A0C';
   const fg2 = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';

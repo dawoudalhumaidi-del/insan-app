@@ -277,17 +277,39 @@ function GameStateBridge({ children }) {
   return children;
 }
 
+class ErrorBoundary extends React.Component {
+  constructor(props){ super(props); this.state = { err: null }; }
+  static getDerivedStateFromError(err){ return { err }; }
+  componentDidCatch(err, info){ console.error('App crash:', err, info); }
+  reset = () => this.setState({ err: null });
+  render(){
+    if (this.state.err) {
+      return (
+        <div style={{padding:'40px 24px', height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center', fontFamily:'var(--font-arabic)', color:'#1a1a1a', background:'#FAFAFA'}}>
+          <div style={{fontSize:48, marginBottom:12}}>⚠️</div>
+          <div style={{fontSize:18, fontWeight:800, marginBottom:6}}>صار خطأ غير متوقع</div>
+          <div style={{fontSize:13, color:'rgba(0,0,0,0.55)', marginBottom:20, maxWidth:280, lineHeight:1.6}}>حاول مرة ثانية، وإذا استمر الخطأ أعد تحميل الصفحة.</div>
+          <button onClick={() => { this.reset(); location.reload(); }} style={{padding:'12px 28px', minHeight:44, borderRadius:99, background:'#0B5FB0', color:'#fff', border:'none', fontFamily:'var(--font-arabic)', fontSize:15, fontWeight:700}}>إعادة تحميل</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function Root() {
   const Provider = window.I18nProvider || React.Fragment;
   const GP = window.GameProvider || React.Fragment;
   return (
-    <Provider>
-      <GP>
-        <GameStateBridge>
-          <NavHost/>
-        </GameStateBridge>
-      </GP>
-    </Provider>
+    <ErrorBoundary>
+      <Provider>
+        <GP>
+          <GameStateBridge>
+            <NavHost/>
+          </GameStateBridge>
+        </GP>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 
