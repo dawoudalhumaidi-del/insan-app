@@ -106,22 +106,18 @@ function HomeBar({ dark = false }) {
   );
 }
 
-// Phone shell — uniform across all designs
+// Phone shell — full-screen container; relies on real device chrome
 function Phone({ children, dark = false, bg }) {
   return (
     <div style={{
-      width: 390, height: 844, borderRadius: 48, overflow:'hidden',
-      position:'relative', background: bg || (dark ? '#0E0E10' : '#fff'),
-      boxShadow: '0 30px 60px rgba(0,0,0,0.18), 0 0 0 8px #1a1a1d, 0 0 0 9px rgba(0,0,0,0.4)',
+      width:'100%', height:'100%',
+      position:'relative', overflow:'hidden',
+      background: bg || (dark ? '#0E0E10' : '#fff'),
       fontFamily: 'var(--font-arabic)', color: dark ? '#fff' : '#1a1a1a',
       direction:'rtl',
+      paddingTop: 'env(safe-area-inset-top)',
     }}>
-      <StatusBar dark={dark} />
-      <div style={{position:'absolute', top:11, left:'50%', transform:'translateX(-50%)', width:120, height:34, borderRadius:22, background:'#000', zIndex:55}}/>
-      <div style={{height:'calc(100% - 0px)', overflow:'hidden', position:'relative'}}>
-        {children}
-      </div>
-      <HomeBar dark={dark}/>
+      {children}
     </div>
   );
 }
