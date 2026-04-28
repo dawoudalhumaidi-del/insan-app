@@ -15,7 +15,7 @@ const photoFor = (cat) => PHOTO_BY_CAT2[cat] || 'assets/photos/aqeedah.svg';
 function Confetti({ run }) {
   if (!run) return null;
   const pieces = Array.from({length: 50}, (_,i) => i);
-  const colors = ['#AE1F24','#FFD700','#2E7D5B','#1a8fd9','#E84A50','#fff'];
+  const colors = ['#0B5FB0','#FFD700','#2E7D5B','#1a8fd9','#E84A50','#fff'];
   return (
     <div style={{position:'absolute', inset:0, pointerEvents:'none', overflow:'hidden', zIndex:200}}>
       {pieces.map(i => {
@@ -130,7 +130,7 @@ function Onboarding({ dark }) {
                 }}/>
               </div>
               <div style={{padding:'30px 30px 0', textAlign:'center'}}>
-                <div style={{display:'inline-block', padding:'5px 12px', background:'rgba(174,31,36,0.1)', color:'#AE1F24', borderRadius:99, fontSize:11, fontWeight:700, letterSpacing:'0.04em', marginBottom:14}}>
+                <div style={{display:'inline-block', padding:'5px 12px', background:'rgba(11,95,176,0.1)', color:'#0B5FB0', borderRadius:99, fontSize:11, fontWeight:700, letterSpacing:'0.04em', marginBottom:14}}>
                   {s.tag}
                 </div>
                 <h1 style={{margin:0, fontSize:26, fontWeight:800, color:fg, lineHeight:1.25, letterSpacing:'-0.015em'}}>{s.title}</h1>
@@ -145,17 +145,17 @@ function Onboarding({ dark }) {
             {ONBOARDING.map((_,i) => (
               <div key={i} onClick={() => setIdx(i)} style={{
                 width: i===idx ? 26 : 8, height: 8, borderRadius:8,
-                background: i===idx ? '#AE1F24' : (dark?'rgba(255,255,255,0.2)':'rgba(0,0,0,0.15)'),
+                background: i===idx ? '#0B5FB0' : (dark?'rgba(255,255,255,0.2)':'rgba(0,0,0,0.15)'),
                 transition:'all 320ms cubic-bezier(0.32, 0.72, 0, 1)',
                 cursor:'pointer',
               }}/>
             ))}
           </div>
           <button onClick={next} style={{
-            width:'100%', padding:'16px', background:'#AE1F24', color:'#fff',
+            width:'100%', padding:'16px', background:'#0B5FB0', color:'#fff',
             border:'none', borderRadius:16, fontFamily:'var(--font-arabic)', fontSize:15, fontWeight:700,
             display:'flex', alignItems:'center', justifyContent:'center', gap:8, cursor:'pointer',
-            boxShadow:'0 10px 30px rgba(174,31,36,0.35)',
+            boxShadow:'0 10px 30px rgba(11,95,176,0.35)',
           }}>
             {idx === ONBOARDING.length-1 ? 'ابدأ الآن' : 'التالي'} {Icon.chevronL('#fff', 14)}
           </button>
@@ -223,8 +223,8 @@ function Search({ dark }) {
             <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:10}}>
               {CATEGORIES.map(c => (
                 <Press key={c.id} onClick={() => nav.push('package')} style={{padding:14, background:cardBg, border:`1px solid ${border}`, borderRadius:14, display:'flex', alignItems:'center', gap:10}}>
-                  <div style={{width:36, height:36, borderRadius:10, background:'rgba(174,31,36,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>
-                    {Icon[c.icon]?.('#AE1F24', 18)}
+                  <div style={{width:36, height:36, borderRadius:10, background:'rgba(11,95,176,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                    {Icon[c.icon]?.('#0B5FB0', 18)}
                   </div>
                   <div style={{flex:1, minWidth:0}}>
                     <div style={{fontSize:12.5, fontWeight:700, color:fg}}>{c.name}</div>
@@ -328,7 +328,7 @@ function Library({ dark }) {
                 <Press key={c.id} onClick={() => nav.push('lessonPlayer', { courseId: c.id })} className="stagger-item" style={{padding:14, background:cardBg, border:`1px solid ${border}`, borderRadius:18, animationDelay:(i*0.06)+'s'}}>
                   <div style={{display:'flex', gap:14, marginBottom:12, alignItems:'center'}}>
                     {window.AnimatedRing ? (
-                      <window.AnimatedRing progress={c.progress} size={64} stroke={4} color="#AE1F24" track={dark?'rgba(255,255,255,0.12)':'rgba(0,0,0,0.08)'}>
+                      <window.AnimatedRing progress={c.progress} size={64} stroke={4} color="#0B5FB0" track={dark?'rgba(255,255,255,0.12)':'rgba(0,0,0,0.08)'}>
                         <div style={{width:48, height:48, borderRadius:99, overflow:'hidden'}}>
                           <CoursePhoto src={c.photo}/>
                         </div>
@@ -342,12 +342,12 @@ function Library({ dark }) {
                       <div style={{fontSize:10.5, color:fg2, marginTop:4}}>{c.last}</div>
                     </div>
                     <div style={{textAlign:'left'}}>
-                      <div style={{fontSize:18, fontWeight:800, color:'#AE1F24', fontFamily:'var(--font-latin)', letterSpacing:'-0.02em'}}>{Math.round(c.progress*100)}%</div>
+                      <div style={{fontSize:18, fontWeight:800, color:'#0B5FB0', fontFamily:'var(--font-latin)', letterSpacing:'-0.02em'}}>{Math.round(c.progress*100)}%</div>
                       <div style={{fontSize:9, color:fg2, fontWeight:500}}>{c.completed}/{c.lessons}</div>
                     </div>
                   </div>
                   <div style={{height:5, background:surface, borderRadius:3, overflow:'hidden'}}>
-                    <div style={{height:'100%', width:`${c.progress*100}%`, background:'linear-gradient(90deg, #AE1F24 0%, #E84A50 100%)', borderRadius:3, transition:'width 800ms cubic-bezier(0.32, 0.72, 0, 1)'}}/>
+                    <div style={{height:'100%', width:`${c.progress*100}%`, background:'linear-gradient(90deg, #0B5FB0 0%, #E84A50 100%)', borderRadius:3, transition:'width 800ms cubic-bezier(0.32, 0.72, 0, 1)'}}/>
                   </div>
                 </Press>
               ))}
@@ -359,7 +359,7 @@ function Library({ dark }) {
               {CERTIFICATES.map((c, i) => (
                 <Press key={c.id} onClick={() => nav.push('certificate', c)} className="stagger-item" style={{
                   padding:'20px 18px', borderRadius:18, position:'relative', overflow:'hidden',
-                  background:'linear-gradient(135deg, #AE1F24 0%, #6B1115 100%)', color:'#fff',
+                  background:'linear-gradient(135deg, #0B5FB0 0%, #6B1115 100%)', color:'#fff',
                   animationDelay:(i*0.07)+'s',
                 }}>
                   <PatternBg color="#fff" opacity={0.07} scale={120}/>
@@ -391,7 +391,7 @@ function Library({ dark }) {
                   <div style={{fontSize:10, color:fg2, marginTop:3, lineHeight:1.5, height:28}}>{a.desc}</div>
                   {!a.earned && a.progress > 0 && (
                     <div style={{height:4, background:dark?'#252528':'#fff', borderRadius:2, overflow:'hidden', marginTop:8}}>
-                      <div style={{height:'100%', width:`${a.progress*100}%`, background:'#AE1F24', borderRadius:2}}/>
+                      <div style={{height:'100%', width:`${a.progress*100}%`, background:'#0B5FB0', borderRadius:2}}/>
                     </div>
                   )}
                 </div>
@@ -411,7 +411,7 @@ function ProgressRing({ progress, size = 64 }) {
   return (
     <svg width={size} height={size} style={{position:'absolute', top:0, left:0, transform:'rotate(-90deg)'}}>
       <circle cx={size/2} cy={size/2} r={r} stroke="rgba(0,0,0,0.15)" strokeWidth="3" fill="none"/>
-      <circle cx={size/2} cy={size/2} r={r} stroke="#AE1F24" strokeWidth="3" fill="none"
+      <circle cx={size/2} cy={size/2} r={r} stroke="#0B5FB0" strokeWidth="3" fill="none"
               strokeDasharray={c} strokeDashoffset={c*(1-progress)} strokeLinecap="round"
               style={{transition:'stroke-dashoffset 1.2s cubic-bezier(0.32, 0.72, 0, 1)'}}/>
     </svg>
@@ -438,7 +438,7 @@ function Notifications({ dark }) {
         <div style={{flex:1, textAlign:'center'}}>
           <h1 style={{margin:0, fontSize:16, fontWeight:700, color:fg}}>الإشعارات</h1>
         </div>
-        <Press style={{fontSize:11, color:'#AE1F24', fontWeight:600}}>وضع الكل كمقروء</Press>
+        <Press style={{fontSize:11, color:'#0B5FB0', fontWeight:600}}>وضع الكل كمقروء</Press>
       </div>
 
       <div style={{height:'calc(100% - 60px - 34px)', overflow:'auto', padding:'10px 20px 30px'}}>
@@ -452,11 +452,11 @@ function Notifications({ dark }) {
                   onClick={() => n.action && nav.push(n.action === 'package' ? 'package' : n.action === 'course' ? 'course' : n.action === 'live' ? 'live' : n.action === 'certificate' ? 'certificate' : 'home', n.action === 'certificate' ? window.APP_DATA.CERTIFICATES[0] : undefined)}
                   className="stagger-item"
                   style={{
-                    display:'flex', gap:12, padding:14, background:cardBg, border:`1px solid ${n.unread?'rgba(174,31,36,0.25)':border}`, borderRadius:14,
+                    display:'flex', gap:12, padding:14, background:cardBg, border:`1px solid ${n.unread?'rgba(11,95,176,0.25)':border}`, borderRadius:14,
                     position:'relative', animationDelay:(i*0.05)+'s',
                   }}
                 >
-                  {n.unread && <div style={{position:'absolute', top:14, left:14, width:8, height:8, borderRadius:8, background:'#AE1F24'}}/>}
+                  {n.unread && <div style={{position:'absolute', top:14, left:14, width:8, height:8, borderRadius:8, background:'#0B5FB0'}}/>}
                   <div style={{width:42, height:42, borderRadius:12, background:surface, display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, flexShrink:0}}>{n.icon}</div>
                   <div style={{flex:1, minWidth:0}}>
                     <div style={{fontSize:13, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>{n.title}</div>
@@ -524,7 +524,7 @@ function LessonPlayer({ dark }) {
           <div style={{padding:'6px 12px', background:'rgba(255,255,255,0.18)', backdropFilter:'blur(20px)', borderRadius:99, fontSize:10, color:fg, fontWeight:600}}>الدرس ٤ من ١٠</div>
           <Press onClick={() => setShowNotes(true)} style={{width:42, height:42, borderRadius:99, background:'rgba(255,255,255,0.18)', backdropFilter:'blur(20px)', display:'flex', alignItems:'center', justifyContent:'center', position:'relative'}}>
             📝
-            {notes.length > 0 && <span style={{position:'absolute', top:6, right:6, width:8, height:8, borderRadius:8, background:'#AE1F24'}}/>}
+            {notes.length > 0 && <span style={{position:'absolute', top:6, right:6, width:8, height:8, borderRadius:8, background:'#0B5FB0'}}/>}
           </Press>
         </div>
 
@@ -536,8 +536,8 @@ function LessonPlayer({ dark }) {
             boxShadow:'0 16px 50px rgba(0,0,0,0.6)',
           }}>
             {playing
-              ? <svg width="32" height="32" viewBox="0 0 24 24" fill="#AE1F24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-              : Icon.play('#AE1F24', 36)}
+              ? <svg width="32" height="32" viewBox="0 0 24 24" fill="#0B5FB0"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+              : Icon.play('#0B5FB0', 36)}
           </Press>
         </div>
 
@@ -572,7 +572,7 @@ function LessonPlayer({ dark }) {
           <div style={{display:'flex', flexDirection:'column', gap:10, marginBottom:18}}>
             {notes.map((n,i) => (
               <div key={i} style={{padding:12, background:'#f5f5f7', borderRadius:12, display:'flex', gap:10, alignItems:'flex-start'}}>
-                <div style={{padding:'3px 8px', background:'#AE1F24', color:'#fff', borderRadius:6, fontSize:10, fontFamily:'var(--font-latin)', fontWeight:700, flexShrink:0}}>{n.time}</div>
+                <div style={{padding:'3px 8px', background:'#0B5FB0', color:'#fff', borderRadius:6, fontSize:10, fontFamily:'var(--font-latin)', fontWeight:700, flexShrink:0}}>{n.time}</div>
                 <div style={{flex:1, fontSize:13, lineHeight:1.6, color:'#1a1a1a'}}>{n.text}</div>
               </div>
             ))}
@@ -585,7 +585,7 @@ function LessonPlayer({ dark }) {
               style={{flex:1, padding:'12px 14px', border:'1px solid #e3e3e6', borderRadius:12, fontFamily:'var(--font-arabic)', fontSize:13, direction:'rtl', outline:'none'}}
             />
             <button onClick={() => { if (newNote.trim()) { setNotes([...notes, {time: fmt(curSec), text:newNote}]); setNewNote(''); } }}
-              style={{padding:'12px 18px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:12, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
+              style={{padding:'12px 18px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:12, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
               حفظ
             </button>
           </div>
@@ -596,7 +596,7 @@ function LessonPlayer({ dark }) {
           <div style={{display:'flex', flexDirection:'column', gap:6}}>
             {[0.75, 1.0, 1.25, 1.5, 1.75, 2.0].map(s => (
               <Press key={s} onClick={() => { setSpeed(s); setShowSpeed(false); }} style={{
-                padding:'14px 16px', borderRadius:12, background: speed===s?'#AE1F24':'#f5f5f7',
+                padding:'14px 16px', borderRadius:12, background: speed===s?'#0B5FB0':'#f5f5f7',
                 color: speed===s?'#fff':'#1a1a1a', fontWeight:700, fontFamily:'var(--font-latin)',
                 display:'flex', justifyContent:'space-between', alignItems:'center',
               }}>
@@ -629,12 +629,12 @@ function Certificate({ dark, params }) {
       <div style={{height:'100%', overflow:'auto'}}>
         <div style={{padding:'14px 20px 8px', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
           <Press onClick={() => nav.canPop ? nav.pop() : nav.setTab('profile')} style={{width:38, height:38, borderRadius:99, background:cardBg, border:`1px solid ${border}`, display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.chevronL(fg, 16)}</Press>
-          <Press style={{padding:'8px 14px', background:'#AE1F24', color:'#fff', borderRadius:99, fontSize:12, fontWeight:700}}>مشاركة ↗</Press>
+          <Press style={{padding:'8px 14px', background:'#0B5FB0', color:'#fff', borderRadius:99, fontSize:12, fontWeight:700}}>مشاركة ↗</Press>
         </div>
 
         <div style={{padding:'24px 20px 20px', textAlign:'center'}}>
           <div style={{fontSize:42, marginBottom:8, animation:'bounceIn 0.8s cubic-bezier(0.32, 0.72, 0, 1)'}}>🎉</div>
-          <div style={{fontSize:11, color:'#AE1F24', fontWeight:700, letterSpacing:'0.08em', marginBottom:6}}>مبارك عليك</div>
+          <div style={{fontSize:11, color:'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', marginBottom:6}}>مبارك عليك</div>
           <h1 style={{margin:0, fontSize:22, fontWeight:800, color:fg, letterSpacing:'-0.015em'}}>حصلت على شهادة جديدة!</h1>
         </div>
 
@@ -647,18 +647,18 @@ function Certificate({ dark, params }) {
             boxShadow:'0 25px 60px rgba(0,0,0,0.15)',
             animation:'certFlip 1.2s cubic-bezier(0.32, 0.72, 0, 1)',
           }}>
-            <PatternBg color="#AE1F24" opacity={0.04} scale={140}/>
+            <PatternBg color="#0B5FB0" opacity={0.04} scale={140}/>
             {/* Border ornament */}
             <div style={{position:'absolute', top:8, left:8, right:8, bottom:8, border:'2px solid #C68B14', borderRadius:14, pointerEvents:'none'}}/>
             <div style={{position:'absolute', top:14, left:14, right:14, bottom:14, border:'1px solid rgba(198,139,20,0.4)', borderRadius:10, pointerEvents:'none'}}/>
 
             <div style={{position:'relative', textAlign:'center'}}>
               <img src="assets/logo/insan-logo-mark.svg" style={{width:36, height:46, marginBottom:14}}/>
-              <div style={{fontSize:9, color:'#AE1F24', fontWeight:700, letterSpacing:'0.2em', marginBottom:14}}>CERTIFICATE OF COMPLETION</div>
+              <div style={{fontSize:9, color:'#0B5FB0', fontWeight:700, letterSpacing:'0.2em', marginBottom:14}}>CERTIFICATE OF COMPLETION</div>
               <div style={{fontSize:11, color:'#5A5A5A', fontWeight:500, marginBottom:8}}>تشهد أكاديمية إنسان أن</div>
               <div style={{fontSize:22, fontWeight:800, color:'#1a1a1a', letterSpacing:'-0.01em', marginBottom:8, fontFamily:'var(--font-arabic)'}}>عبدالرحمن السبيعي</div>
               <div style={{fontSize:11, color:'#5A5A5A', fontWeight:500, marginBottom:14}}>قد أتمّ بنجاح</div>
-              <div style={{fontSize:16, fontWeight:700, color:'#AE1F24', lineHeight:1.4, marginBottom:18, padding:'0 16px'}}>{cert.title}</div>
+              <div style={{fontSize:16, fontWeight:700, color:'#0B5FB0', lineHeight:1.4, marginBottom:18, padding:'0 16px'}}>{cert.title}</div>
 
               <div style={{height:1, background:'rgba(198,139,20,0.4)', margin:'14px 0'}}/>
 
@@ -686,7 +686,7 @@ function Certificate({ dark, params }) {
           <Press as="button" style={{flex:1, padding:'14px', background:cardBg, border:`1px solid ${border}`, color:fg, borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', gap:6}}>
             {Icon.download(fg, 16)} تنزيل PDF
           </Press>
-          <Press as="button" onClick={() => nav.setTab('home')} style={{flex:1, padding:'14px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
+          <Press as="button" onClick={() => nav.setTab('home')} style={{flex:1, padding:'14px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
             تابع التعلّم
           </Press>
         </div>
@@ -728,12 +728,12 @@ function Quiz({ dark }) {
         {passed && <Confetti run={true}/>}
         <div style={{height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'30px', textAlign:'center'}}>
           <div style={{fontSize:64, marginBottom:14, animation:'bounceIn 0.8s cubic-bezier(0.32, 0.72, 0, 1)'}}>{passed?'🏆':'📚'}</div>
-          <div style={{fontSize:11, color:passed?'#2E7D5B':'#AE1F24', fontWeight:700, letterSpacing:'0.08em', marginBottom:8}}>{passed?'ممتاز!':'حاول مرة أخرى'}</div>
+          <div style={{fontSize:11, color:passed?'#2E7D5B':'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', marginBottom:8}}>{passed?'ممتاز!':'حاول مرة أخرى'}</div>
           <h1 style={{margin:'0 0 8px', fontSize:28, fontWeight:800, color:fg, letterSpacing:'-0.015em'}}>نتيجتك: {pct}%</h1>
           <p style={{margin:'0 0 28px', fontSize:13, color:fg2, lineHeight:1.7}}>أجبت بشكل صحيح على {score} من {QUIZ_QUESTIONS.length} أسئلة</p>
           <div style={{display:'flex', gap:10, width:'100%'}}>
             <Press as="button" onClick={() => { setIdx(0); setPicked(null); setScore(0); setDone(false); }} style={{flex:1, padding:'14px', background:cardBg, color:fg, border:`1px solid ${border}`, borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>إعادة الاختبار</Press>
-            <Press as="button" onClick={() => passed ? nav.replace('certificate', window.APP_DATA.CERTIFICATES[0]) : nav.setTab('home')} style={{flex:1, padding:'14px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
+            <Press as="button" onClick={() => passed ? nav.replace('certificate', window.APP_DATA.CERTIFICATES[0]) : nav.setTab('home')} style={{flex:1, padding:'14px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
               {passed?'استلم شهادتك':'العودة'}
             </Press>
           </div>
@@ -749,14 +749,14 @@ function Quiz({ dark }) {
           <Press onClick={() => nav.canPop ? nav.pop() : nav.setTab('home')} style={{width:38, height:38, borderRadius:99, background:cardBg, border:`1px solid ${border}`, display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.chevronL(fg, 16)}</Press>
           <div style={{flex:1, padding:'0 16px'}}>
             <div style={{height:6, background:cardBg, borderRadius:3, overflow:'hidden', border:`1px solid ${border}`}}>
-              <div style={{height:'100%', width:`${((idx+1)/QUIZ_QUESTIONS.length)*100}%`, background:'linear-gradient(90deg, #AE1F24 0%, #E84A50 100%)', transition:'width 480ms cubic-bezier(0.32, 0.72, 0, 1)'}}/>
+              <div style={{height:'100%', width:`${((idx+1)/QUIZ_QUESTIONS.length)*100}%`, background:'linear-gradient(90deg, #0B5FB0 0%, #E84A50 100%)', transition:'width 480ms cubic-bezier(0.32, 0.72, 0, 1)'}}/>
             </div>
           </div>
           <div style={{fontSize:12, color:fg2, fontWeight:700, fontFamily:'var(--font-latin)'}}>{idx+1}/{QUIZ_QUESTIONS.length}</div>
         </div>
 
         <div style={{flex:1, padding:'30px 24px', display:'flex', flexDirection:'column'}}>
-          <div style={{fontSize:11, color:'#AE1F24', fontWeight:700, letterSpacing:'0.08em', marginBottom:10}}>السؤال {idx+1}</div>
+          <div style={{fontSize:11, color:'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', marginBottom:10}}>السؤال {idx+1}</div>
           <h2 key={idx} style={{margin:'0 0 30px', fontSize:22, fontWeight:700, color:fg, lineHeight:1.4, letterSpacing:'-0.005em', animation:'fadeUp 0.4s ease'}}>{q.q}</h2>
 
           <div style={{display:'flex', flexDirection:'column', gap:10}}>
@@ -771,8 +771,8 @@ function Quiz({ dark }) {
                   className="stagger-item"
                   style={{
                     padding:'16px 18px', borderRadius:14, textAlign:'right',
-                    background: showCorrect ? 'rgba(46,125,91,0.12)' : showWrong ? 'rgba(174,31,36,0.12)' : isPicked ? 'rgba(174,31,36,0.06)' : cardBg,
-                    border:`2px solid ${showCorrect ? '#2E7D5B' : showWrong ? '#AE1F24' : isPicked ? '#AE1F24' : border}`,
+                    background: showCorrect ? 'rgba(46,125,91,0.12)' : showWrong ? 'rgba(11,95,176,0.12)' : isPicked ? 'rgba(11,95,176,0.06)' : cardBg,
+                    border:`2px solid ${showCorrect ? '#2E7D5B' : showWrong ? '#0B5FB0' : isPicked ? '#0B5FB0' : border}`,
                     fontSize:13.5, color:fg, fontWeight:600, lineHeight:1.6,
                     display:'flex', justifyContent:'space-between', alignItems:'center',
                     animationDelay:(i*0.06)+'s',
@@ -780,7 +780,7 @@ function Quiz({ dark }) {
                   }}>
                   <span>{o}</span>
                   {showCorrect && <div style={{width:24, height:24, borderRadius:99, background:'#2E7D5B', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.check('#fff', 14)}</div>}
-                  {showWrong && <div style={{width:24, height:24, borderRadius:99, background:'#AE1F24', color:'#fff', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:800}}>✕</div>}
+                  {showWrong && <div style={{width:24, height:24, borderRadius:99, background:'#0B5FB0', color:'#fff', display:'flex', alignItems:'center', justifyContent:'center', fontWeight:800}}>✕</div>}
                 </Press>
               );
             })}
@@ -789,7 +789,7 @@ function Quiz({ dark }) {
 
         <div style={{padding:'14px 20px 30px'}}>
           <Press as="button" onClick={() => picked != null && submit()} style={{
-            width:'100%', padding:'16px', background: picked!=null?'#AE1F24':'#ccc', color:'#fff',
+            width:'100%', padding:'16px', background: picked!=null?'#0B5FB0':'#ccc', color:'#fff',
             border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700,
             opacity: picked!=null?1:0.5, cursor: picked!=null?'pointer':'default',
             transition:'all 200ms ease',
@@ -844,7 +844,7 @@ function LiveSession({ dark }) {
 
         <div style={{padding:'24px 20px 30px', display:'flex', flexDirection:'column', gap:20}}>
           {/* Countdown */}
-          <div style={{padding:'20px 16px', background:'linear-gradient(135deg, #AE1F24 0%, #6B1115 100%)', borderRadius:18, color:'#fff', textAlign:'center', position:'relative', overflow:'hidden'}}>
+          <div style={{padding:'20px 16px', background:'linear-gradient(135deg, #0B5FB0 0%, #6B1115 100%)', borderRadius:18, color:'#fff', textAlign:'center', position:'relative', overflow:'hidden'}}>
             <PatternBg color="#fff" opacity={0.06} scale={120}/>
             <div style={{position:'relative'}}>
               <div style={{fontSize:10, opacity:0.85, letterSpacing:'0.08em', marginBottom:14, fontWeight:600}}>تبدأ الحلقة بعد</div>
@@ -872,7 +872,7 @@ function LiveSession({ dark }) {
           {/* Details */}
           <div style={{padding:'14px 16px', background:cardBg, border:`1px solid ${border}`, borderRadius:14, display:'flex', flexDirection:'column', gap:14}}>
             <div style={{display:'flex', alignItems:'center', gap:14}}>
-              <div style={{width:36, height:36, borderRadius:10, background:'rgba(174,31,36,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>📅</div>
+              <div style={{width:36, height:36, borderRadius:10, background:'rgba(11,95,176,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>📅</div>
               <div style={{flex:1}}>
                 <div style={{fontSize:10, color:fg2, fontWeight:600, marginBottom:2}}>التاريخ والوقت</div>
                 <div style={{fontSize:13, fontWeight:700, color:fg}}>{LIVE_SESSION.date}</div>
@@ -881,27 +881,27 @@ function LiveSession({ dark }) {
             </div>
             <div style={{height:1, background:border}}/>
             <div style={{display:'flex', alignItems:'center', gap:14}}>
-              <div style={{width:36, height:36, borderRadius:10, background:'rgba(174,31,36,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.pin('#AE1F24', 16)}</div>
+              <div style={{width:36, height:36, borderRadius:10, background:'rgba(11,95,176,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.pin('#0B5FB0', 16)}</div>
               <div style={{flex:1}}>
                 <div style={{fontSize:10, color:fg2, fontWeight:600, marginBottom:2}}>الموقع</div>
                 <div style={{fontSize:13, fontWeight:700, color:fg}}>{LIVE_SESSION.location}</div>
               </div>
-              <Press style={{padding:'7px 11px', background:'rgba(174,31,36,0.1)', borderRadius:99, fontSize:10, color:'#AE1F24', fontWeight:700}}>الخريطة ›</Press>
+              <Press style={{padding:'7px 11px', background:'rgba(11,95,176,0.1)', borderRadius:99, fontSize:10, color:'#0B5FB0', fontWeight:700}}>الخريطة ›</Press>
             </div>
             <div style={{height:1, background:border}}/>
             <div style={{display:'flex', alignItems:'center', gap:14}}>
-              <div style={{width:36, height:36, borderRadius:10, background:'rgba(174,31,36,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.users('#AE1F24', 16)}</div>
+              <div style={{width:36, height:36, borderRadius:10, background:'rgba(11,95,176,0.1)', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.users('#0B5FB0', 16)}</div>
               <div style={{flex:1}}>
                 <div style={{fontSize:10, color:fg2, fontWeight:600, marginBottom:2}}>الحضور</div>
                 <div style={{fontSize:13, fontWeight:700, color:fg}}>{LIVE_SESSION.attendees} مسجّلون من {LIVE_SESSION.capacity}</div>
               </div>
             </div>
             <div style={{height:5, background:surface, borderRadius:3, overflow:'hidden'}}>
-              <div style={{height:'100%', width:`${(LIVE_SESSION.attendees/LIVE_SESSION.capacity)*100}%`, background:'linear-gradient(90deg, #AE1F24 0%, #E84A50 100%)', transition:'width 1s'}}/>
+              <div style={{height:'100%', width:`${(LIVE_SESSION.attendees/LIVE_SESSION.capacity)*100}%`, background:'linear-gradient(90deg, #0B5FB0 0%, #E84A50 100%)', transition:'width 1s'}}/>
             </div>
           </div>
 
-          <Press as="button" style={{width:'100%', padding:'16px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', gap:8, boxShadow:'0 12px 30px rgba(174,31,36,0.3)'}}>
+          <Press as="button" style={{width:'100%', padding:'16px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center', gap:8, boxShadow:'0 12px 30px rgba(11,95,176,0.3)'}}>
             احجز مقعدك الآن {Icon.chevronL('#fff', 14)}
           </Press>
         </div>

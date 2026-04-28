@@ -61,8 +61,8 @@ function TabBar({ dark, activeTab }) {
           <Press key={tabId} onClick={() => nav.setTab(tabId)} style={{display:'flex', flexDirection:'column', alignItems:'center', gap:3, padding:'2px 10px'}}>
             {emoji
               ? <div style={{fontSize:20, filter: act?'none':'grayscale(0.4)', opacity: act?1:0.55}}>{emoji}</div>
-              : Icon[ic]( act?'#AE1F24':fg2, 22, act?'#AE1F24':'none')}
-            <div style={{fontSize:10, color: act?'#AE1F24':fg2, fontWeight: act?700:500}}>{t(lblKey)}</div>
+              : Icon[ic]( act?'#0B5FB0':fg2, 22, act?'#0B5FB0':'none')}
+            <div style={{fontSize:10, color: act?'#0B5FB0':fg2, fontWeight: act?700:500}}>{t(lblKey)}</div>
           </Press>
         );
       })}
@@ -107,7 +107,7 @@ v2.Home = function({ dark, params }) {
         {/* Flagship quick-access ribbon */}
         <div style={{padding:'2px 16px 14px', display:'flex', gap:8, overflowX:'auto'}}>
           {[
-            {id:'skillTree', icon:'🧭', label:'مساري الذكي', grad:'linear-gradient(135deg, #AE1F24, #6B1115)'},
+            {id:'skillTree', icon:'🧭', label:'مساري الذكي', grad:'linear-gradient(135deg, #0B5FB0, #6B1115)'},
             {id:'tutor',     icon:'🕌', label:'الشيخ الذكي', grad:'linear-gradient(135deg, #2E7D5B, #1f5f43)', badge:'AI'},
             {id:'wird',      icon:'📿', label:'ورد اليوم', grad:'linear-gradient(135deg, #C68B14, #8B5E0C)'},
             {id:'duel',      icon:'⚔️', label:'تحدّي', grad:'linear-gradient(135deg, #7B1FA2, #4A0072)'},
@@ -198,7 +198,7 @@ v2.Home = function({ dark, params }) {
                 </div>
                 <div>
                   <div style={{height:4, background:surface, borderRadius:2, overflow:'hidden'}}>
-                    <div style={{height:'100%', width:`${c.p*100}%`, background:'linear-gradient(90deg, #AE1F24 0%, #E84A50 100%)', borderRadius:2, transition:'width 600ms ease'}}/>
+                    <div style={{height:'100%', width:`${c.p*100}%`, background:'linear-gradient(90deg, #0B5FB0 0%, #E84A50 100%)', borderRadius:2, transition:'width 600ms ease'}}/>
                   </div>
                   <div style={{fontSize:10, color:fg2, marginTop:5, fontWeight:500}}>{c.dur}</div>
                 </div>
@@ -215,7 +215,7 @@ v2.Home = function({ dark, params }) {
           {CATEGORIES.map((c,i) => (
             <Press key={c.id} onClick={() => nav.push('instructors', { cat: c.id })} style={{flex:'0 0 auto', display:'flex', alignItems:'center', gap:8, padding:'12px 16px', background: i===0?fg:cardBg, border:`1px solid ${i===0?fg:border}`, borderRadius:99}}>
               <div style={{width:24, height:24, borderRadius:99, background: i===0?'rgba(255,255,255,0.15)':surface, display:'flex', alignItems:'center', justifyContent:'center'}}>
-                {Icon[c.icon]?.( i===0?'#fff':'#AE1F24', 14)}
+                {Icon[c.icon]?.( i===0?'#fff':'#0B5FB0', 14)}
               </div>
               <span style={{fontSize:12, fontWeight:700, color: i===0?(dark?'#0A0A0C':'#fff'):fg}}>{c.name}</span>
             </Press>
@@ -243,7 +243,7 @@ v2.Home = function({ dark, params }) {
                   <div style={{display:'flex', alignItems:'center', gap:6, fontSize:10, color:fg2, fontWeight:500}}>
                     {Icon.clock(fg2, 11)} {p.hours}س · {p.courses} دورات
                   </div>
-                  <div style={{width:28, height:28, borderRadius:99, background:'#AE1F24', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.chevronL('#fff', 12)}</div>
+                  <div style={{width:28, height:28, borderRadius:99, background:'#0B5FB0', display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.chevronL('#fff', 12)}</div>
                 </div>
               </div>
             </Press>
@@ -340,7 +340,7 @@ v2.Package = function({ dark, params }) {
             <div style={{display:'flex', flexDirection:'column', gap:8}}>
               {['تأسيس قوي في علم العقيدة على منهج السلف','معرفة أنواع التوحيد الثلاثة وأدلتها','الرد على الشبهات المعاصرة بأدلة واضحة','حفظ متن العقيدة الواسطية مع شرحها'].map((o,i) => (
                 <div key={i} style={{display:'flex', gap:10, alignItems:'flex-start', padding:'10px 12px', background:cardBg, border:`1px solid ${border}`, borderRadius:12}}>
-                  <div style={{width:22, height:22, borderRadius:99, background:'rgba(174,31,36,0.1)', color:'#AE1F24', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0}}>{Icon.check('#AE1F24', 13)}</div>
+                  <div style={{width:22, height:22, borderRadius:99, background:'rgba(11,95,176,0.1)', color:'#0B5FB0', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0}}>{Icon.check('#0B5FB0', 13)}</div>
                   <div style={{fontSize:12.5, color:fg, lineHeight:1.6, fontWeight:500}}>{o}</div>
                 </div>
               ))}
@@ -357,11 +357,11 @@ v2.Package = function({ dark, params }) {
                 <Press
                   key={c.n}
                   onClick={c.status==='locked' ? undefined : () => nav.push('course', { courseN: c.n, title: c.title })}
-                  style={{padding:14, background:cardBg, border:`1px solid ${c.status==='active'?'#AE1F24':border}`, borderRadius:14, display:'flex', gap:12, alignItems:'center', opacity: c.status==='locked'?0.55:1}}
+                  style={{padding:14, background:cardBg, border:`1px solid ${c.status==='active'?'#0B5FB0':border}`, borderRadius:14, display:'flex', gap:12, alignItems:'center', opacity: c.status==='locked'?0.55:1}}
                 >
                   <div style={{width:48, height:48, borderRadius:14, overflow:'hidden', flexShrink:0, position:'relative'}}>
                     <CoursePhoto src={photo(p.cat)}/>
-                    <div style={{position:'absolute', inset:0, background: c.status==='done'?'rgba(46,125,91,0.7)' : c.status==='active'?'rgba(174,31,36,0.7)' : 'rgba(0,0,0,0.5)', display:'flex', alignItems:'center', justifyContent:'center', color:'#fff', fontWeight:800, fontSize:14, fontFamily:'var(--font-latin)'}}>
+                    <div style={{position:'absolute', inset:0, background: c.status==='done'?'rgba(46,125,91,0.7)' : c.status==='active'?'rgba(11,95,176,0.7)' : 'rgba(0,0,0,0.5)', display:'flex', alignItems:'center', justifyContent:'center', color:'#fff', fontWeight:800, fontSize:14, fontFamily:'var(--font-latin)'}}>
                       {c.status==='done' ? Icon.check('#fff', 18) : c.status==='locked' ? Icon.lock('#fff', 16) : c.n}
                     </div>
                   </div>
@@ -379,9 +379,9 @@ v2.Package = function({ dark, params }) {
         <div style={{position:'absolute', bottom:0, left:0, right:0, padding:'14px 20px 28px', background: dark?'rgba(10,10,12,0.85)':'rgba(250,250,250,0.85)', backdropFilter:'blur(20px)', WebkitBackdropFilter:'blur(20px)', borderTop:`1px solid ${border}`, display:'flex', gap:12, alignItems:'center', zIndex:20}}>
           <div style={{flex:1}}>
             <div style={{fontSize:10, color:fg2, fontWeight:500}}>الباقة الكاملة</div>
-            <div style={{fontSize:18, fontWeight:800, color:'#AE1F24', letterSpacing:'-0.01em'}}>{p.price ? `${p.price.toLocaleString('en-US')} SAR` : 'مجانية'}</div>
+            <div style={{fontSize:18, fontWeight:800, color:'#0B5FB0', letterSpacing:'-0.01em'}}>{p.price ? `${p.price.toLocaleString('en-US')} SAR` : 'مجانية'}</div>
           </div>
-          <Press onClick={() => { window.toast?.('تم التسجيل في الباقة', {icon:'✨', tone:'success'}); nav.push('lessonPlayer', { courseN: 1 }); }} as="button" style={{padding:'14px 26px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:99, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, display:'flex', alignItems:'center', gap:8, boxShadow:'0 10px 24px rgba(174,31,36,0.35)'}}>
+          <Press onClick={() => { window.toast?.('تم التسجيل في الباقة', {icon:'✨', tone:'success'}); nav.push('lessonPlayer', { courseN: 1 }); }} as="button" style={{padding:'14px 26px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:99, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, display:'flex', alignItems:'center', gap:8, boxShadow:'0 10px 24px rgba(11,95,176,0.35)'}}>
             التحق الآن {Icon.chevronL('#fff', 14)}
           </Press>
         </div>
@@ -428,8 +428,8 @@ v2.Course = function({ dark, params }) {
               style={{width:74, height:74, borderRadius:99, background:'rgba(255,255,255,0.95)', backdropFilter:'blur(20px)', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 12px 40px rgba(0,0,0,0.5)'}}
             >
               {playing
-                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="#AE1F24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-                : Icon.play('#AE1F24', 26)}
+                ? <svg width="22" height="22" viewBox="0 0 24 24" fill="#0B5FB0"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                : Icon.play('#0B5FB0', 26)}
             </Press>
           </div>
           <div style={{position:'absolute', bottom:14, left:18, right:18}}>
@@ -443,7 +443,7 @@ v2.Course = function({ dark, params }) {
         </div>
 
         <div style={{padding:'22px 20px'}}>
-          <div style={{display:'inline-block', padding:'4px 10px', background:'rgba(174,31,36,0.1)', color:'#AE1F24', borderRadius:99, fontSize:10, fontWeight:700, marginBottom:10, letterSpacing:'0.04em'}}>الدرس ٤ من ١٠</div>
+          <div style={{display:'inline-block', padding:'4px 10px', background:'rgba(11,95,176,0.1)', color:'#0B5FB0', borderRadius:99, fontSize:10, fontWeight:700, marginBottom:10, letterSpacing:'0.04em'}}>الدرس ٤ من ١٠</div>
           <h1 style={{margin:0, fontSize:22, fontWeight:700, color:fg, lineHeight:1.25, letterSpacing:'-0.01em'}}>{title}</h1>
           <p style={{margin:'10px 0 0', fontSize:13, color:fg2, lineHeight:1.85}}>دراسة الأدلة العقلية على وجود الله، والاستدلال بالحس والمشاهدة، مع الرد على شبهات المخالفين.</p>
 
@@ -461,7 +461,7 @@ v2.Course = function({ dark, params }) {
 
           <div style={{display:'flex', gap:18, padding:'16px 0 0', borderBottom:`1px solid ${border}`, marginBottom:16}}>
             {[['دروس الدورة', true],['ملاحظاتي',false],['ملفات',false]].map(([t,a]) => (
-              <div key={t} style={{padding:'0 0 12px', fontSize:13, fontWeight: a?700:500, color: a?fg:fg2, borderBottom: a?'2px solid #AE1F24':'2px solid transparent', marginBottom:-1, letterSpacing:'-0.005em'}}>{t}</div>
+              <div key={t} style={{padding:'0 0 12px', fontSize:13, fontWeight: a?700:500, color: a?fg:fg2, borderBottom: a?'2px solid #0B5FB0':'2px solid transparent', marginBottom:-1, letterSpacing:'-0.005em'}}>{t}</div>
             ))}
           </div>
 
@@ -469,18 +469,18 @@ v2.Course = function({ dark, params }) {
             {LESSONS.map(l => (
               <Press key={l.n} onClick={() => {/* could load this lesson */}} style={{
                 display:'flex', gap:12, padding:'12px', alignItems:'center',
-                background: l.current ? (dark?'rgba(174,31,36,0.12)':'rgba(174,31,36,0.05)') : 'transparent',
-                border: `1px solid ${l.current?'rgba(174,31,36,0.3)':'transparent'}`,
+                background: l.current ? (dark?'rgba(11,95,176,0.12)':'rgba(11,95,176,0.05)') : 'transparent',
+                border: `1px solid ${l.current?'rgba(11,95,176,0.3)':'transparent'}`,
                 borderRadius:14,
               }}>
-                <div style={{width:40, height:40, borderRadius:12, background: l.done?'rgba(46,125,91,0.12)' : l.current?'#AE1F24':surface, color: l.done?'#2E7D5B': l.current?'#fff':fg2, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0}}>
+                <div style={{width:40, height:40, borderRadius:12, background: l.done?'rgba(46,125,91,0.12)' : l.current?'#0B5FB0':surface, color: l.done?'#2E7D5B': l.current?'#fff':fg2, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0}}>
                   {l.done ? Icon.check(undefined, 16) : Icon.play(undefined, 14)}
                 </div>
                 <div style={{flex:1, minWidth:0}}>
-                  <div style={{fontSize:13, fontWeight: l.current?700:600, color: l.current?'#AE1F24':fg, lineHeight:1.4, letterSpacing:'-0.005em'}}>{l.title}</div>
+                  <div style={{fontSize:13, fontWeight: l.current?700:600, color: l.current?'#0B5FB0':fg, lineHeight:1.4, letterSpacing:'-0.005em'}}>{l.title}</div>
                   <div style={{fontSize:10, color:fg2, marginTop:3, fontFamily:'var(--font-latin)', fontWeight:500}}>{l.dur}</div>
                 </div>
-                {l.current && playing && <div style={{display:'flex', gap:3, alignItems:'flex-end'}}>{[3,5,4].map((h,i)=><div key={i} className="bar-pulse" style={{width:3, height:h*2, background:'#AE1F24', borderRadius:2, animationDelay: `${i*0.15}s`}}/>)}</div>}
+                {l.current && playing && <div style={{display:'flex', gap:3, alignItems:'flex-end'}}>{[3,5,4].map((h,i)=><div key={i} className="bar-pulse" style={{width:3, height:h*2, background:'#0B5FB0', borderRadius:2, animationDelay: `${i*0.15}s`}}/>)}</div>}
               </Press>
             ))}
           </div>
@@ -526,8 +526,8 @@ v2.Login = function({ dark }) {
             <span>••••••••</span>
             <span style={{fontSize:11, color:fg2, letterSpacing:0, fontWeight:500}}>إظهار</span>
           </div>
-          <div style={{textAlign:'left', fontSize:12, color:'#AE1F24', fontWeight:600}}>نسيت كلمة المرور؟</div>
-          <Press as="button" onClick={() => nav.login()} style={{padding:'15px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, marginTop:8, display:'flex', alignItems:'center', justifyContent:'center', gap:8}}>
+          <div style={{textAlign:'left', fontSize:12, color:'#0B5FB0', fontWeight:600}}>نسيت كلمة المرور؟</div>
+          <Press as="button" onClick={() => nav.login()} style={{padding:'15px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, marginTop:8, display:'flex', alignItems:'center', justifyContent:'center', gap:8}}>
             تسجيل الدخول {Icon.chevronL('#fff', 14)}
           </Press>
         </div>
@@ -544,7 +544,7 @@ v2.Login = function({ dark }) {
         </div>
 
         <div style={{textAlign:'center', fontSize:12, color:fg2, marginTop:22}}>
-          جديد هنا؟ <span style={{color:'#AE1F24', fontWeight:700, cursor:'pointer'}} onClick={() => nav.login()}>أنشئ حسابك</span>
+          جديد هنا؟ <span style={{color:'#0B5FB0', fontWeight:700, cursor:'pointer'}} onClick={() => nav.login()}>أنشئ حسابك</span>
         </div>
       </div>
     </Phone>
@@ -591,7 +591,7 @@ v2.Profile = function({ dark }) {
             ))}
           </div>
 
-          <div style={{padding:'16px 18px', background:'linear-gradient(135deg, #AE1F24 0%, #6B1115 100%)', borderRadius:18, color:'#fff', marginBottom:18, position:'relative', overflow:'hidden'}}>
+          <div style={{padding:'16px 18px', background:'linear-gradient(135deg, #0B5FB0 0%, #6B1115 100%)', borderRadius:18, color:'#fff', marginBottom:18, position:'relative', overflow:'hidden'}}>
             <PatternBg color="#fff" opacity={0.08} scale={120}/>
             <div style={{position:'relative', display:'flex', gap:14, alignItems:'center'}}>
               <div style={{width:48, height:48, borderRadius:14, background:'rgba(255,255,255,0.2)', backdropFilter:'blur(10px)', display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -662,7 +662,7 @@ v2.Instructors = function({ dark }) {
         <div style={{padding:'18px 20px 14px'}}>
           <Press onClick={() => nav.push('package')} style={{borderRadius:20, overflow:'hidden', position:'relative', minHeight:200, color:'#fff'}}>
             <CoursePhoto src="assets/photos/tafseer.svg"/>
-            <div style={{position:'absolute', inset:0, background:'linear-gradient(135deg, rgba(0,0,0,0.6), rgba(174,31,36,0.5))'}}/>
+            <div style={{position:'absolute', inset:0, background:'linear-gradient(135deg, rgba(0,0,0,0.6), rgba(11,95,176,0.5))'}}/>
             <div style={{position:'relative', padding:'22px 20px', display:'flex', flexDirection:'column', justifyContent:'flex-end', minHeight:200}}>
               <div style={{display:'inline-block', padding:'4px 10px', background:'rgba(255,255,255,0.18)', backdropFilter:'blur(12px)', border:'1px solid rgba(255,255,255,0.25)', borderRadius:99, fontSize:10, fontWeight:600, marginBottom:12, alignSelf:'flex-start'}}>✦ المحاضر المميّز</div>
               <h2 style={{margin:0, fontSize:20, fontWeight:700, letterSpacing:'-0.01em'}}>{featured.name}</h2>

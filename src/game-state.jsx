@@ -110,7 +110,7 @@ function GameChips({ dark, compact = false }) {
   return (
     <div style={{display:'flex', gap:6, alignItems:'center'}}>
       {chip(<><span style={{fontSize:13}}>🔥</span><span>{g.streak}</span></>, '#FF8A00')}
-      {chip(<><span style={{fontSize:13}}>⚡</span><span>{g.xp >= 1000 ? (g.xp/1000).toFixed(1)+'k' : g.xp}</span></>, '#AE1F24')}
+      {chip(<><span style={{fontSize:13}}>⚡</span><span>{g.xp >= 1000 ? (g.xp/1000).toFixed(1)+'k' : g.xp}</span></>, '#0B5FB0')}
       {chip(<><span style={{fontSize:13}}>{g.hearts > 0 ? '❤️' : '💔'}</span><span>{g.hearts}</span></>, '#E0115F')}
     </div>
   );

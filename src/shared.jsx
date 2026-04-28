@@ -127,7 +127,7 @@ function Phone({ children, dark = false, bg }) {
 }
 
 // Decorative SVG illustration placeholders (in lieu of real photos) — geometric tile motifs
-function PatternBg({ color='#AE1F24', opacity=0.07, scale=180 }) {
+function PatternBg({ color='#0B5FB0', opacity=0.07, scale=180 }) {
   return (
     <div style={{
       position:'absolute', inset:0, pointerEvents:'none',
@@ -138,7 +138,7 @@ function PatternBg({ color='#AE1F24', opacity=0.07, scale=180 }) {
 }
 
 // Decorative course thumbnail — generative geometric
-function CourseThumb({ seed=1, color='#AE1F24', dark=false, h=120 }) {
+function CourseThumb({ seed=1, color='#0B5FB0', dark=false, h=120 }) {
   const variants = [
     // arched mihrab silhouette
     <svg key="a" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" style={{width:'100%', height:'100%'}}>
@@ -205,7 +205,7 @@ function CourseThumb({ seed=1, color='#AE1F24', dark=false, h=120 }) {
 }
 
 // Avatar placeholder for instructors — gradient circle with initials
-function Avatar({ name='', size=44, color='#AE1F24', dark=false }) {
+function Avatar({ name='', size=44, color='#0B5FB0', dark=false }) {
   const initial = (name || '').replace(/[^أ-يa-zA-Z]/g,'').slice(0,2);
   return (
     <div style={{

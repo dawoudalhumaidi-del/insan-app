@@ -23,14 +23,14 @@ function Splash({ dark, onDone }) {
       <div style={{height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:18, position:'relative'}}>
         <div style={{position:'absolute', inset:0, opacity:0.05, backgroundImage:"url('assets/patterns/insan-tile.svg')", backgroundSize:160}}/>
         <div className="splash-pop" style={{position:'relative'}}>
-          <img src="assets/logo/insan-mark-square.svg" style={{width:120, height:144, borderRadius:16, boxShadow:'0 20px 50px rgba(174,31,36,0.4)'}}/>
+          <img src="assets/logo/insan-mark-square.svg" style={{width:120, height:144, borderRadius:16, boxShadow:'0 20px 50px rgba(11,95,176,0.4)'}}/>
         </div>
         <div className="splash-fade" style={{textAlign:'center'}}>
           <div style={{fontSize:22, fontWeight:800, color: dark?'#fff':'#1a1a1a', letterSpacing:'-0.01em'}}>إنسان</div>
           <div style={{fontSize:11, color: dark?'rgba(255,255,255,0.5)':'rgba(0,0,0,0.5)', fontWeight:500, letterSpacing:'0.06em', marginTop:4}}>للعلوم الشرعية</div>
         </div>
         <div style={{position:'absolute', bottom:80, width:46, height:3, background:dark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.08)', borderRadius:2, overflow:'hidden'}}>
-          <div className="splash-loader" style={{height:'100%', background:'#AE1F24', borderRadius:2}}/>
+          <div className="splash-loader" style={{height:'100%', background:'#0B5FB0', borderRadius:2}}/>
         </div>
       </div>
     </Phone>
@@ -181,7 +181,7 @@ function NavHost() {
                 onClick={() => nav.push('notifications')}
                 style={{padding:'8px 12px', borderRadius:99, background: dark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.06)', border:`1px solid ${dark?'rgba(255,255,255,0.1)':'rgba(0,0,0,0.08)'}`, color: dark?'#fff':'#1a1a1a', fontSize:12, cursor:'pointer', position:'relative'}}
               >🔔
-                <span style={{position:'absolute', top:5, right:7, width:8, height:8, borderRadius:8, background:'#AE1F24', border:`2px solid ${dark?'#1a1a1f':'#f5f3f0'}`}}/>
+                <span style={{position:'absolute', top:5, right:7, width:8, height:8, borderRadius:8, background:'#0B5FB0', border:`2px solid ${dark?'#1a1a1f':'#f5f3f0'}`}}/>
               </button>
             )}
             <button

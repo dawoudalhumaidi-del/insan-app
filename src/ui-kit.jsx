@@ -22,7 +22,7 @@ function Toaster({ dark }) {
         <div key={t.id} className="toast-pop" style={{
           padding:'12px 18px', minWidth:200, maxWidth:340,
           background: t.tone==='success' ? 'linear-gradient(135deg, #2E7D5B, #1f5f43)' :
-                      t.tone==='error'   ? 'linear-gradient(135deg, #AE1F24, #6B1115)' :
+                      t.tone==='error'   ? 'linear-gradient(135deg, #0B5FB0, #6B1115)' :
                                             (dark ? 'rgba(28,28,32,0.95)' : 'rgba(20,20,24,0.94)'),
           backdropFilter: 'blur(20px)',
           color:'#fff', borderRadius:14,
@@ -60,7 +60,7 @@ function AnimatedNumber({ to, duration = 1200, format = (n) => n.toLocaleString(
 window.AnimatedNumber = AnimatedNumber;
 
 // ─────────────── Animated Progress Ring — animates from 0 to progress on mount
-function AnimatedRing({ progress = 0, size = 64, stroke = 4, color = '#AE1F24', track = 'rgba(0,0,0,0.12)', children }) {
+function AnimatedRing({ progress = 0, size = 64, stroke = 4, color = '#0B5FB0', track = 'rgba(0,0,0,0.12)', children }) {
   const [p, setP] = React.useState(0);
   React.useEffect(() => {
     const t = setTimeout(() => setP(progress), 60);
@@ -103,8 +103,8 @@ function HeartBtn({ id, size = 22, dark, onChange }) {
       <svg width={size} height={size} viewBox="0 0 24 24" style={{transition:'fill 240ms ease'}}>
         <path
           d="M12 21s-7-4.5-9.5-9.2C0.7 8 2.4 4 6.5 4c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 4.1 0 5.8 4 4 7.8C19 16.5 12 21 12 21z"
-          fill={filled ? '#AE1F24' : 'none'}
-          stroke={filled ? '#AE1F24' : (dark ? '#fff' : '#1a1a1a')}
+          fill={filled ? '#0B5FB0' : 'none'}
+          stroke={filled ? '#0B5FB0' : (dark ? '#fff' : '#1a1a1a')}
           strokeWidth="1.8"
         />
       </svg>
@@ -188,7 +188,7 @@ function MiniPlayer({ dark, lesson, playing, onPlay, onClose, onOpen }) {
         </div>
       </button>
       <button onClick={onPlay} style={{
-        width:36, height:36, borderRadius:99, background:'#AE1F24', border:'none',
+        width:36, height:36, borderRadius:99, background:'#0B5FB0', border:'none',
         display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer', flexShrink:0,
       }}>
         {playing
@@ -225,9 +225,9 @@ function SegmentedTabs({ items, value, onChange, dark }) {
     }}>
       <div style={{
         position:'absolute', top:4, bottom:4, left: pill.left, width: pill.width,
-        background:'#AE1F24', borderRadius:10,
+        background:'#0B5FB0', borderRadius:10,
         transition:'all 360ms cubic-bezier(0.32, 0.72, 0, 1)',
-        boxShadow:'0 6px 16px rgba(174,31,36,0.25)',
+        boxShadow:'0 6px 16px rgba(11,95,176,0.25)',
       }}/>
       {items.map(it => (
         <button
@@ -257,11 +257,11 @@ function FAB({ icon = '✦', onClick, label }) {
     <button onClick={onClick} className="fab-pop" style={{
       position:'absolute', bottom:104, right:18, zIndex:34,
       width:56, height:56, borderRadius:99,
-      background:'linear-gradient(135deg, #AE1F24 0%, #6B1115 100%)',
+      background:'linear-gradient(135deg, #0B5FB0 0%, #6B1115 100%)',
       color:'#fff', border:'none', cursor:'pointer',
       fontSize:22, fontWeight:700,
       display:'flex', alignItems:'center', justifyContent:'center',
-      boxShadow:'0 14px 30px rgba(174,31,36,0.45), 0 0 0 0 rgba(174,31,36,0.6)',
+      boxShadow:'0 14px 30px rgba(11,95,176,0.45), 0 0 0 0 rgba(11,95,176,0.6)',
       animation:'fabRing 2.6s ease-out infinite',
     }}>{icon}</button>
   );

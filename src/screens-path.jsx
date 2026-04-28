@@ -11,7 +11,7 @@ function LangSheet({ open, onClose }) {
           <window.Press key={l.code} onClick={() => { i18n.setLang(l.code); window.toast?.('Language updated · ' + l.name, {icon: l.flag, tone:'success'}); setTimeout(onClose, 180); }}
             style={{
               padding:'14px 16px', borderRadius:14, display:'flex', alignItems:'center', gap:14,
-              background: i18n.lang === l.code ? '#AE1F24' : '#f5f5f7',
+              background: i18n.lang === l.code ? '#0B5FB0' : '#f5f5f7',
               color: i18n.lang === l.code ? '#fff' : '#1a1a1a',
             }}>
             <span style={{fontSize:24}}>{l.flag}</span>
@@ -103,7 +103,7 @@ function PathQuiz({ dark }) {
         {window.Confetti && <window.Confetti run={true}/>}
         <div style={{height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'30px', textAlign:'center'}}>
           <div style={{fontSize:72, marginBottom:14, animation:'bounceIn 0.8s cubic-bezier(0.32, 0.72, 0, 1)'}}>🎯</div>
-          <div style={{fontSize:11, color:'#AE1F24', fontWeight:700, letterSpacing:'0.08em', marginBottom:8}}>{t('quiz_done_title').toUpperCase()}</div>
+          <div style={{fontSize:11, color:'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', marginBottom:8}}>{t('quiz_done_title').toUpperCase()}</div>
           <h1 style={{margin:'0 0 10px', fontSize:26, fontWeight:800, color:fg, letterSpacing:'-0.015em'}}>{t('quiz_done_title')}</h1>
           <p style={{margin:'0 0 28px', fontSize:13, color:fg2, lineHeight:1.7, maxWidth:300}}>{t('quiz_done_sub')}</p>
 
@@ -116,10 +116,10 @@ function PathQuiz({ dark }) {
           </div>
 
           <window.Press as="button" onClick={() => { game.addXp(50, 'إكمال التحديد'); nav.replace('skillTree'); }} style={{
-            width:'100%', padding:'16px', background:'#AE1F24', color:'#fff',
+            width:'100%', padding:'16px', background:'#0B5FB0', color:'#fff',
             border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700,
             display:'flex', alignItems:'center', justifyContent:'center', gap:8,
-            boxShadow:'0 12px 30px rgba(174,31,36,0.35)',
+            boxShadow:'0 12px 30px rgba(11,95,176,0.35)',
           }}>
             {t('quiz_view_path')} {Icon.chevronL('#fff', 14)}
           </window.Press>
@@ -139,7 +139,7 @@ function PathQuiz({ dark }) {
             </window.Press>
           )}
           <div style={{flex:1, height:6, background:cardBg, border:`1px solid ${border}`, borderRadius:99, overflow:'hidden'}}>
-            <div style={{height:'100%', width:`${progress*100}%`, background:'linear-gradient(90deg, #AE1F24, #E84A50)', borderRadius:99, transition:'width 480ms cubic-bezier(0.32, 0.72, 0, 1)'}}/>
+            <div style={{height:'100%', width:`${progress*100}%`, background:'linear-gradient(90deg, #0B5FB0, #E84A50)', borderRadius:99, transition:'width 480ms cubic-bezier(0.32, 0.72, 0, 1)'}}/>
           </div>
           <div style={{fontSize:12, color:fg2, fontWeight:700, fontFamily:'var(--font-latin)', minWidth:36, textAlign:'left'}}>{step+1}/{total}</div>
         </div>
@@ -161,8 +161,8 @@ function PathQuiz({ dark }) {
                 <window.Press key={o.v} onClick={() => pick(o.v)} className="stagger-item"
                   style={{
                     padding: cur.multi ? '14px 12px' : '16px 18px', borderRadius:14,
-                    background: sel ? 'rgba(174,31,36,0.08)' : cardBg,
-                    border:`2px solid ${sel ? '#AE1F24' : border}`,
+                    background: sel ? 'rgba(11,95,176,0.08)' : cardBg,
+                    border:`2px solid ${sel ? '#0B5FB0' : border}`,
                     display:'flex', alignItems:'center', gap:12,
                     flexDirection: cur.multi ? 'column' : 'row',
                     textAlign: cur.multi ? 'center' : (i18n.dir==='rtl'?'right':'left'),
@@ -170,7 +170,7 @@ function PathQuiz({ dark }) {
                   }}>
                   <div style={{fontSize: cur.multi ? 28 : 22}}>{o.icon}</div>
                   <div style={{flex:1, fontSize: cur.multi ? 12 : 14, fontWeight: sel?700:600, color:fg}}>{o.label}</div>
-                  {sel && !cur.multi && Icon.check('#AE1F24', 18)}
+                  {sel && !cur.multi && Icon.check('#0B5FB0', 18)}
                 </window.Press>
               );
             })}
@@ -180,7 +180,7 @@ function PathQuiz({ dark }) {
         <div style={{padding:'14px 24px 30px'}}>
           {cur.multi ? (
             <window.Press as="button" onClick={() => { if ((answers[cur.key]||[]).length) setStep(s=>s+1); }} style={{
-              width:'100%', padding:'15px', background: (answers[cur.key]||[]).length?'#AE1F24':'#ccc', color:'#fff',
+              width:'100%', padding:'15px', background: (answers[cur.key]||[]).length?'#0B5FB0':'#ccc', color:'#fff',
               border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700,
               opacity: (answers[cur.key]||[]).length?1:0.5,
             }}>
@@ -188,7 +188,7 @@ function PathQuiz({ dark }) {
             </window.Press>
           ) : step === total - 1 && answers[cur.key] != null ? (
             <window.Press as="button" onClick={finish} style={{
-              width:'100%', padding:'15px', background:'#AE1F24', color:'#fff',
+              width:'100%', padding:'15px', background:'#0B5FB0', color:'#fff',
               border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700,
             }}>{t('done')}</window.Press>
           ) : (
@@ -229,7 +229,7 @@ function SkillTree({ dark }) {
         { id:'u1-3', title:'توحيد الألوهية', icon:'🕋', short:'L3' },
         { id:'u1-4', title:'مراجعة الوحدة', icon:'🏆', short:'★' , isReview:true},
       ]},
-    { id:'u2', title:'الفقه: العبادات', icon:'⚖️', color:'#AE1F24', desc:'الطهارة والصلاة',
+    { id:'u2', title:'الفقه: العبادات', icon:'⚖️', color:'#0B5FB0', desc:'الطهارة والصلاة',
       nodes:[
         { id:'u2-1', title:'فقه الطهارة', icon:'💧', short:'L1' },
         { id:'u2-2', title:'أحكام الوضوء', icon:'🚿', short:'L2' },
@@ -309,7 +309,7 @@ function SkillTree({ dark }) {
                       )}
                       <div style={{[i18n.dir==='rtl'?'marginRight':'marginLeft']: offset, position:'relative'}}>
                         {current && (
-                          <div style={{position:'absolute', bottom: '100%', [i18n.dir==='rtl'?'right':'left']:'50%', transform:'translateX(50%)', marginBottom:4, padding:'5px 10px', background:'#AE1F24', color:'#fff', borderRadius:99, fontSize:9, fontWeight:700, letterSpacing:'0.04em', whiteSpace:'nowrap'}} className="bounce-tag">START</div>
+                          <div style={{position:'absolute', bottom: '100%', [i18n.dir==='rtl'?'right':'left']:'50%', transform:'translateX(50%)', marginBottom:4, padding:'5px 10px', background:'#0B5FB0', color:'#fff', borderRadius:99, fontSize:9, fontWeight:700, letterSpacing:'0.04em', whiteSpace:'nowrap'}} className="bounce-tag">START</div>
                         )}
                         <window.Press
                           onClick={() => unlocked ? nav.push('lessonNode', { node: n, unit, xpReward }) : window.toast?.('أكمل الدرس السابق أولاً', {tone:'error', icon:'🔒'})}
@@ -368,7 +368,7 @@ function LessonNode({ dark, params }) {
   const border = dark ? 'rgba(255,255,255,0.08)' : 'rgba(10,10,12,0.06)';
 
   const node = params?.node || { id:'demo', title:'درس تجريبي', icon:'📖' };
-  const unit = params?.unit || { color:'#AE1F24', title:'وحدة' };
+  const unit = params?.unit || { color:'#0B5FB0', title:'وحدة' };
   const xpReward = params?.xpReward || 20;
 
   return (
@@ -501,8 +501,8 @@ function Leaderboard({ dark }) {
             return (
               <div key={p.id || p.name} className="stagger-item" style={{
                 display:'flex', alignItems:'center', gap:12, padding:'12px 14px',
-                background: p.isMe ? 'rgba(174,31,36,0.08)' : cardBg,
-                border:`2px solid ${p.isMe ? '#AE1F24' : border}`, borderRadius:14,
+                background: p.isMe ? 'rgba(11,95,176,0.08)' : cardBg,
+                border:`2px solid ${p.isMe ? '#0B5FB0' : border}`, borderRadius:14,
                 animationDelay:(i*0.04)+'s', position:'relative',
               }}>
                 <div style={{
@@ -520,12 +520,12 @@ function Leaderboard({ dark }) {
                 <div style={{flex:1, minWidth:0}}>
                   <div style={{fontSize:13, fontWeight:700, color:fg, display:'flex', alignItems:'center', gap:6}}>
                     {p.name}
-                    {p.isMe && <span style={{padding:'2px 7px', background:'#AE1F24', color:'#fff', borderRadius:99, fontSize:9, fontWeight:700}}>أنت</span>}
+                    {p.isMe && <span style={{padding:'2px 7px', background:'#0B5FB0', color:'#fff', borderRadius:99, fontSize:9, fontWeight:700}}>أنت</span>}
                   </div>
                   <div style={{fontSize:10.5, color:fg2, marginTop:2}}>
                     {isPromote && <span style={{color:'#2E7D5B', fontWeight:700}}>↑ يصعد</span>}
                     {!isPromote && !isDemote && <span>منطقة آمنة</span>}
-                    {isDemote && <span style={{color:'#AE1F24', fontWeight:700}}>↓ يهبط</span>}
+                    {isDemote && <span style={{color:'#0B5FB0', fontWeight:700}}>↓ يهبط</span>}
                   </div>
                 </div>
                 <div style={{textAlign:'left'}}>
@@ -624,7 +624,7 @@ function Duel({ dark }) {
             <h2 style={{margin:'0 0 8px', fontSize:24, fontWeight:800, color:fg, textAlign:'center', letterSpacing:'-0.015em'}}>{t('duel_title')}</h2>
             <p style={{margin:'0 0 30px', fontSize:13, color:fg2, textAlign:'center', lineHeight:1.7, maxWidth:280}}>{t('duel_sub')}</p>
             <div style={{width:'100%', display:'flex', flexDirection:'column', gap:10}}>
-              <window.Press as="button" onClick={startSearch} style={{padding:'16px', background:'linear-gradient(135deg, #AE1F24, #6B1115)', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:800, boxShadow:'0 14px 30px rgba(174,31,36,0.4)', display:'flex', alignItems:'center', justifyContent:'center', gap:8}}>
+              <window.Press as="button" onClick={startSearch} style={{padding:'16px', background:'linear-gradient(135deg, #0B5FB0, #6B1115)', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:800, boxShadow:'0 14px 30px rgba(11,95,176,0.4)', display:'flex', alignItems:'center', justifyContent:'center', gap:8}}>
                 ⚡ {t('duel_find')}
               </window.Press>
               <window.Press as="button" style={{padding:'14px', background:cardBg, color:fg, border:`1px solid ${border}`, borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>
@@ -647,7 +647,7 @@ function Duel({ dark }) {
             <div style={{fontSize:12, color:fg2}}>المنافسون من حول العالم</div>
           </div>
           <div style={{display:'flex', gap:6}}>
-            {[0,1,2].map(i => <div key={i} className="dot-wave" style={{width:8, height:8, borderRadius:8, background:'#AE1F24', animationDelay:(i*0.15)+'s'}}/>)}
+            {[0,1,2].map(i => <div key={i} className="dot-wave" style={{width:8, height:8, borderRadius:8, background:'#0B5FB0', animationDelay:(i*0.15)+'s'}}/>)}
           </div>
         </div>
       </Phone>
@@ -665,12 +665,12 @@ function Duel({ dark }) {
               <div style={{fontSize:24}}>🧑‍🎓</div>
               <div>
                 <div style={{fontSize:11, fontWeight:700, color:fg}}>أنت</div>
-                <div style={{fontSize:18, fontWeight:800, color:'#AE1F24', fontFamily:'var(--font-latin)', lineHeight:1}}>{meScore}</div>
+                <div style={{fontSize:18, fontWeight:800, color:'#0B5FB0', fontFamily:'var(--font-latin)', lineHeight:1}}>{meScore}</div>
               </div>
             </div>
             <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
               <div className="timer-pulse" style={{
-                width:46, height:46, borderRadius:99, background:'#AE1F24', color:'#fff',
+                width:46, height:46, borderRadius:99, background:'#0B5FB0', color:'#fff',
                 display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, fontWeight:800, fontFamily:'var(--font-latin)',
               }}>{timer}</div>
               <div style={{fontSize:9, color:fg2, fontWeight:700, marginTop:4}}>{t('duel_round')} {round+1}/{QS.length}</div>
@@ -685,7 +685,7 @@ function Duel({ dark }) {
           </div>
 
           <div key={round} style={{flex:1, padding:'30px 24px', animation:'fadeUp 0.4s ease', overflow:'auto'}}>
-            <div style={{fontSize:11, color:'#AE1F24', fontWeight:700, letterSpacing:'0.08em', marginBottom:10}}>{t('duel_round')} {round+1}</div>
+            <div style={{fontSize:11, color:'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', marginBottom:10}}>{t('duel_round')} {round+1}</div>
             <h2 style={{margin:'0 0 26px', fontSize:22, fontWeight:700, color:fg, lineHeight:1.4, letterSpacing:'-0.005em'}}>{q.q}</h2>
             <div style={{display:'flex', flexDirection:'column', gap:10}}>
               {q.opts.map((o, i) => {
@@ -695,8 +695,8 @@ function Duel({ dark }) {
                 return (
                   <window.Press key={i} onClick={() => picked == null && handleAnswer(i)} className="stagger-item" style={{
                     padding:'15px 18px', borderRadius:14, textAlign: i18n.dir==='rtl'?'right':'left',
-                    background: showCorrect ? 'rgba(46,125,91,0.12)' : showWrong ? 'rgba(174,31,36,0.12)' : cardBg,
-                    border:`2px solid ${showCorrect ? '#2E7D5B' : showWrong ? '#AE1F24' : border}`,
+                    background: showCorrect ? 'rgba(46,125,91,0.12)' : showWrong ? 'rgba(11,95,176,0.12)' : cardBg,
+                    border:`2px solid ${showCorrect ? '#2E7D5B' : showWrong ? '#0B5FB0' : border}`,
                     fontSize:14, color:fg, fontWeight:600, animationDelay:(i*0.05)+'s',
                   }}>{o}</window.Press>
                 );
@@ -717,12 +717,12 @@ function Duel({ dark }) {
       {won && window.Confetti && <window.Confetti run={true}/>}
       <div style={{height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:30, textAlign:'center'}}>
         <div style={{fontSize:80, marginBottom:14, animation:'bounceIn 0.8s cubic-bezier(0.32, 0.72, 0, 1)'}}>{won?'🏆':tied?'🤝':'💪'}</div>
-        <div style={{fontSize:11, color:won?'#2E7D5B':'#AE1F24', fontWeight:700, letterSpacing:'0.08em', marginBottom:8}}>{won?'فوز ساحق':tied?'تعادل':'خسارة شريفة'}</div>
+        <div style={{fontSize:11, color:won?'#2E7D5B':'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', marginBottom:8}}>{won?'فوز ساحق':tied?'تعادل':'خسارة شريفة'}</div>
         <h1 style={{margin:'0 0 30px', fontSize:28, fontWeight:800, color:fg, letterSpacing:'-0.015em'}}>{meScore} - {oppScore}</h1>
-        <div style={{padding:'14px 22px', background:'linear-gradient(135deg, #AE1F24, #6B1115)', color:'#fff', borderRadius:99, fontSize:14, fontWeight:800, marginBottom:24, boxShadow:'0 10px 24px rgba(174,31,36,0.3)'}}>+{reward} XP</div>
+        <div style={{padding:'14px 22px', background:'linear-gradient(135deg, #0B5FB0, #6B1115)', color:'#fff', borderRadius:99, fontSize:14, fontWeight:800, marginBottom:24, boxShadow:'0 10px 24px rgba(11,95,176,0.3)'}}>+{reward} XP</div>
         <div style={{display:'flex', gap:10, width:'100%'}}>
           <window.Press as="button" onClick={() => setState('lobby')} style={{flex:1, padding:'14px', background:cardBg, color:fg, border:`1px solid ${border}`, borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>تحدّي جديد</window.Press>
-          <window.Press as="button" onClick={() => { game.addXp(reward, 'تحدّي'); nav.pop(); }} style={{flex:1, padding:'14px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>استلام الجائزة</window.Press>
+          <window.Press as="button" onClick={() => { game.addXp(reward, 'تحدّي'); nav.pop(); }} style={{flex:1, padding:'14px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700}}>استلام الجائزة</window.Press>
         </div>
       </div>
     </Phone>
@@ -783,7 +783,7 @@ function AITutor({ dark }) {
         <div style={{padding:'14px 16px', display:'flex', alignItems:'center', gap:10, borderBottom:`1px solid ${border}`}}>
           <window.Press onClick={() => nav.canPop ? nav.pop() : nav.setTab('home')} style={{width:38, height:38, borderRadius:99, background:cardBg, border:`1px solid ${border}`, display:'flex', alignItems:'center', justifyContent:'center'}}>{Icon.chevronL(fg, 16)}</window.Press>
           <div style={{position:'relative'}}>
-            <div style={{width:42, height:42, borderRadius:99, background:'linear-gradient(135deg, #AE1F24, #6B1115)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, color:'#fff'}}>🕌</div>
+            <div style={{width:42, height:42, borderRadius:99, background:'linear-gradient(135deg, #0B5FB0, #6B1115)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:20, color:'#fff'}}>🕌</div>
             <span className="pulse-dot" style={{position:'absolute', bottom:0, right:0, width:11, height:11, borderRadius:99, background:'#2E7D5B', border:`2px solid ${pageBg}`}}/>
           </div>
           <div style={{flex:1}}>
@@ -797,7 +797,7 @@ function AITutor({ dark }) {
             <div key={i} className="stagger-item" style={{
               alignSelf: m.role === 'me' ? (i18n.dir==='rtl'?'flex-start':'flex-end') : (i18n.dir==='rtl'?'flex-end':'flex-start'),
               maxWidth:'82%', padding:'11px 14px', borderRadius:18,
-              background: m.role === 'me' ? '#AE1F24' : cardBg,
+              background: m.role === 'me' ? '#0B5FB0' : cardBg,
               color: m.role === 'me' ? '#fff' : fg,
               border: m.role === 'sheikh' ? `1px solid ${border}` : 'none',
               fontSize:13, lineHeight:1.7, animationDelay: '0.05s',
@@ -832,7 +832,7 @@ function AITutor({ dark }) {
             style={{flex:1, padding:'12px 14px', background:cardBg, border:`1px solid ${border}`, borderRadius:99, fontFamily:'var(--font-arabic)', fontSize:13, color:fg, outline:'none', direction: i18n.dir}}
           />
           <button onClick={() => send()} style={{
-            width:42, height:42, borderRadius:99, background:'#AE1F24', color:'#fff', border:'none', cursor:'pointer',
+            width:42, height:42, borderRadius:99, background:'#0B5FB0', color:'#fff', border:'none', cursor:'pointer',
             fontSize:14, fontWeight:700, display:'flex', alignItems:'center', justifyContent:'center',
           }}>↑</button>
         </div>
@@ -927,7 +927,7 @@ function Wird({ dark }) {
                   <div style={{fontSize:13.5, fontWeight:700, color:fg, textDecoration: done?'line-through':'none', textDecorationColor:'rgba(46,125,91,0.5)', textDecorationThickness:'2px'}}>{task.label}</div>
                   <div style={{fontSize:11, color:fg2, marginTop:3, lineHeight:1.5}}>{task.detail}</div>
                 </div>
-                <div style={{padding:'4px 9px', borderRadius:99, background: done?'#2E7D5B':'rgba(174,31,36,0.1)', color: done?'#fff':'#AE1F24', fontSize:10, fontWeight:800, fontFamily:'var(--font-latin)'}}>+{task.xp}</div>
+                <div style={{padding:'4px 9px', borderRadius:99, background: done?'#2E7D5B':'rgba(11,95,176,0.1)', color: done?'#fff':'#0B5FB0', fontSize:10, fontWeight:800, fontFamily:'var(--font-latin)'}}>+{task.xp}</div>
               </window.Press>
             );
           })}
@@ -1036,7 +1036,7 @@ function Tajweed({ dark }) {
                   return (
                     <span key={ti} style={{
                       color: tok.c || fg,
-                      background: isCur ? 'rgba(174,31,36,0.15)' : 'transparent',
+                      background: isCur ? 'rgba(11,95,176,0.15)' : 'transparent',
                       padding: isCur ? '2px 4px' : '0',
                       borderRadius: 6,
                       transition: 'all 200ms ease',
@@ -1044,7 +1044,7 @@ function Tajweed({ dark }) {
                     }}>{tok.t}</span>
                   );
                 })}
-                <span style={{color:'#AE1F24', fontSize:18, margin:'0 6px'}}>﴿{v.n}﴾</span>
+                <span style={{color:'#0B5FB0', fontSize:18, margin:'0 6px'}}>﴿{v.n}﴾</span>
               </span>
             ))}
           </div>
@@ -1054,7 +1054,7 @@ function Tajweed({ dark }) {
           <window.Press as="button" style={{padding:'14px 18px', background:cardBg, color:fg, border:`1px solid ${border}`, borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:700, display:'flex', alignItems:'center', gap:8}}>
             🎙 {t('tajweed_record')}
           </window.Press>
-          <window.Press as="button" onClick={() => { setCurrentWord(0); setPlaying(p => !p); }} style={{flex:1, padding:'14px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:800, display:'flex', alignItems:'center', justifyContent:'center', gap:8}}>
+          <window.Press as="button" onClick={() => { setCurrentWord(0); setPlaying(p => !p); }} style={{flex:1, padding:'14px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:14, fontFamily:'var(--font-arabic)', fontSize:13, fontWeight:800, display:'flex', alignItems:'center', justifyContent:'center', gap:8}}>
             {playing ? '⏸ إيقاف' : `▶ ${t('tajweed_listen')}`}
           </window.Press>
         </div>

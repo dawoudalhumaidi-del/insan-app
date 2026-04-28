@@ -8,7 +8,7 @@ v1.Home = function({ dark }) {
   const free = PACKAGES.filter(p => !p.premium);
   const premium = PACKAGES.filter(p => p.premium);
 
-  const pageBg = dark ? '#0E0E10' : '#F7F4EE';
+  const pageBg = dark ? '#0E0E10' : '#F0F7FB';
   const cardBg = dark ? '#1C1C1E' : '#fff';
   const fg = dark ? '#fff' : '#1A1A1A';
   const fg2 = dark ? 'rgba(255,255,255,0.65)' : '#5A5A5A';
@@ -28,7 +28,7 @@ v1.Home = function({ dark }) {
           </div>
           <div style={{position:'relative', width:38, height:38, borderRadius:10, background: dark?'rgba(255,255,255,0.06)':'#fff', display:'flex', alignItems:'center', justifyContent:'center', border:`1px solid ${border}`}}>
             {Icon.bell(fg, 18)}
-            <span style={{position:'absolute', top:8, right:9, width:7, height:7, borderRadius:7, background:'#AE1F24'}}/>
+            <span style={{position:'absolute', top:8, right:9, width:7, height:7, borderRadius:7, background:'#0B5FB0'}}/>
           </div>
         </div>
 
@@ -49,24 +49,24 @@ v1.Home = function({ dark }) {
         {/* Continue learning row */}
         <div style={{padding:'0 20px 8px', display:'flex', justifyContent:'space-between', alignItems:'baseline'}}>
           <h3 style={{margin:0, fontSize:16, fontWeight:700, color:fg}}>تابع التعلم</h3>
-          <span style={{fontSize:12, color:'#AE1F24', fontWeight:600}}>الكل ›</span>
+          <span style={{fontSize:12, color:'#0B5FB0', fontWeight:600}}>الكل ›</span>
         </div>
         <div style={{margin:'0 20px 24px', background: cardBg, border:`1px solid ${border}`, borderRadius:12, overflow:'hidden'}}>
           <div style={{display:'flex', gap:12, padding:14}}>
             <div style={{width:64, height:64, borderRadius:8, overflow:'hidden', flexShrink:0}}>
-              <CourseThumb seed={2} color="#AE1F24" h={64}/>
+              <CourseThumb seed={2} color="#0B5FB0" h={64}/>
             </div>
             <div style={{flex:1, minWidth:0}}>
               <div style={{fontSize:11, color:fg2, marginBottom:2}}>الدرس ٤ من ١٠</div>
               <div style={{fontSize:14, fontWeight:700, color:fg, lineHeight:1.4}}>الأدلة العقلية والحسية</div>
               <div style={{fontSize:11, color:fg2, marginTop:4}}>توحيد الألوهية</div>
             </div>
-            <button style={{width:40, height:40, borderRadius:99, background:'#AE1F24', border:'none', display:'flex', alignItems:'center', justifyContent:'center', alignSelf:'center'}}>
+            <button style={{width:40, height:40, borderRadius:99, background:'#0B5FB0', border:'none', display:'flex', alignItems:'center', justifyContent:'center', alignSelf:'center'}}>
               {Icon.play('#fff', 14)}
             </button>
           </div>
           <div style={{height:3, background: dark?'rgba(255,255,255,0.08)':'#F1F1F2'}}>
-            <div style={{height:'100%', width:'40%', background:'#AE1F24'}}/>
+            <div style={{height:'100%', width:'40%', background:'#0B5FB0'}}/>
           </div>
         </div>
 
@@ -77,8 +77,8 @@ v1.Home = function({ dark }) {
         <div style={{display:'flex', gap:10, padding:'8px 20px 24px', overflowX:'auto'}}>
           {CATEGORIES.map(c => (
             <div key={c.id} style={{flex:'0 0 auto', minWidth:96, background: cardBg, border:`1px solid ${border}`, borderRadius:12, padding:14, textAlign:'center'}}>
-              <div style={{width:36, height:36, margin:'0 auto 8px', borderRadius:8, background:'rgba(174,31,36,0.08)', color:'#AE1F24', display:'flex', alignItems:'center', justifyContent:'center'}}>
-                {Icon[c.icon] && Icon[c.icon]('#AE1F24', 20)}
+              <div style={{width:36, height:36, margin:'0 auto 8px', borderRadius:8, background:'rgba(11,95,176,0.08)', color:'#0B5FB0', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                {Icon[c.icon] && Icon[c.icon]('#0B5FB0', 20)}
               </div>
               <div style={{fontSize:12, fontWeight:700, color:fg}}>{c.name}</div>
               <div style={{fontSize:10, color:fg2, marginTop:2}}>{c.count} دورة</div>
@@ -89,13 +89,13 @@ v1.Home = function({ dark }) {
         {/* Free packages section */}
         <div style={{padding:'0 20px 8px', display:'flex', justifyContent:'space-between', alignItems:'baseline'}}>
           <h3 style={{margin:0, fontSize:16, fontWeight:700, color:fg}}>باقات مجانية</h3>
-          <span style={{fontSize:12, color:'#AE1F24', fontWeight:600}}>الكل ›</span>
+          <span style={{fontSize:12, color:'#0B5FB0', fontWeight:600}}>الكل ›</span>
         </div>
         <div style={{display:'flex', flexDirection:'column', gap:10, padding:'8px 20px 24px'}}>
           {free.slice(0, 3).map(p => (
             <div key={p.id} style={{display:'flex', gap:12, padding:12, background:cardBg, border:`1px solid ${border}`, borderRadius:12}}>
               <div style={{width:72, height:72, borderRadius:8, overflow:'hidden', flexShrink:0}}>
-                <CourseThumb seed={p.id.length} color="#AE1F24" h={72}/>
+                <CourseThumb seed={p.id.length} color="#0B5FB0" h={72}/>
               </div>
               <div style={{flex:1, minWidth:0}}>
                 <div style={{display:'flex', gap:6, alignItems:'center', marginBottom:4}}>
@@ -115,14 +115,14 @@ v1.Home = function({ dark }) {
         {/* Premium / certified row */}
         <div style={{padding:'0 20px 8px', display:'flex', justifyContent:'space-between', alignItems:'baseline'}}>
           <h3 style={{margin:0, fontSize:16, fontWeight:700, color:fg}}>شهادات معتمدة</h3>
-          <span style={{fontSize:12, color:'#AE1F24', fontWeight:600}}>الكل ›</span>
+          <span style={{fontSize:12, color:'#0B5FB0', fontWeight:600}}>الكل ›</span>
         </div>
         <div style={{display:'flex', gap:10, overflowX:'auto', padding:'8px 20px 16px'}}>
           {premium.map(p => (
             <div key={p.id} style={{flex:'0 0 240px', background:'#1A1A1A', borderRadius:14, overflow:'hidden', position:'relative'}}>
               <div style={{height:90, position:'relative'}}>
                 <CourseThumb seed={6} color="#1A1A1A" h={90}/>
-                <PatternBg color="#AE1F24" opacity={0.15} scale={120}/>
+                <PatternBg color="#0B5FB0" opacity={0.15} scale={120}/>
                 <div style={{position:'absolute', top:10, right:10, fontSize:10, fontWeight:700, color:'#1A1A1A', background:'#FFD700', padding:'3px 8px', borderRadius:4, letterSpacing:'0.04em'}}>{p.label}</div>
               </div>
               <div style={{padding:14, color:'#fff'}}>
@@ -142,8 +142,8 @@ v1.Home = function({ dark }) {
       <div style={{position:'absolute', bottom:0, left:0, right:0, height:84, background: dark?'rgba(28,28,30,0.95)':'#fff', borderTop:`1px solid ${border}`, display:'flex', justifyContent:'space-around', paddingTop:8}}>
         {[['home','الرئيسية',true],['compass','استكشف',false],['bookmark','دوراتي',false],['user','حسابي',false]].map(([ic, lbl, act]) => (
           <div key={lbl} style={{display:'flex', flexDirection:'column', alignItems:'center', gap:3}}>
-            {Icon[ic]( act?'#AE1F24':fg2, 22, act?'#AE1F24':'none')}
-            <div style={{fontSize:10, color: act?'#AE1F24':fg2, fontWeight: act?700:500}}>{lbl}</div>
+            {Icon[ic]( act?'#0B5FB0':fg2, 22, act?'#0B5FB0':'none')}
+            <div style={{fontSize:10, color: act?'#0B5FB0':fg2, fontWeight: act?700:500}}>{lbl}</div>
           </div>
         ))}
       </div>
@@ -157,14 +157,14 @@ v1.Package = function({ dark }) {
   const cardBg = dark ? '#1C1C1E' : '#fff';
   const fg = dark ? '#fff' : '#1A1A1A';
   const fg2 = dark ? 'rgba(255,255,255,0.65)' : '#5A5A5A';
-  const pageBg = dark ? '#0E0E10' : '#F7F4EE';
+  const pageBg = dark ? '#0E0E10' : '#F0F7FB';
   const border = dark ? 'rgba(255,255,255,0.08)' : '#E2E4E5';
 
   return (
     <Phone dark={dark} bg={pageBg}>
       <div style={{height:'100%', overflow:'auto'}}>
         {/* Hero */}
-        <div style={{position:'relative', height:280, background:'#AE1F24', overflow:'hidden'}}>
+        <div style={{position:'relative', height:280, background:'#0B5FB0', overflow:'hidden'}}>
           <PatternBg color="#fff" opacity={0.12} scale={180}/>
           <div style={{position:'absolute', top:50, left:20, right:20, display:'flex', justifyContent:'space-between'}}>
             <div style={{width:36, height:36, borderRadius:10, background:'rgba(255,255,255,0.18)', backdropFilter:'blur(8px)', display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -224,7 +224,7 @@ v1.Package = function({ dark }) {
             <div style={{display:'flex', flexDirection:'column', gap:8}}>
               {COURSES_IN_AQEEDAH.map(c => (
                 <div key={c.n} style={{display:'flex', gap:12, padding:12, background:cardBg, border:`1px solid ${border}`, borderRadius:10, alignItems:'center', opacity: c.status==='locked'?0.6:1}}>
-                  <div style={{width:36, height:36, borderRadius:8, background: c.status==='done'?'rgba(46,125,91,0.12)' : c.status==='active'?'rgba(174,31,36,0.1)' : (dark?'rgba(255,255,255,0.05)':'#F1F1F2'), color: c.status==='done'?'#2E7D5B': c.status==='active'?'#AE1F24' : fg2, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontWeight:700, fontSize:13}}>
+                  <div style={{width:36, height:36, borderRadius:8, background: c.status==='done'?'rgba(46,125,91,0.12)' : c.status==='active'?'rgba(11,95,176,0.1)' : (dark?'rgba(255,255,255,0.05)':'#F1F1F2'), color: c.status==='done'?'#2E7D5B': c.status==='active'?'#0B5FB0' : fg2, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontWeight:700, fontSize:13}}>
                     {c.status==='done' ? Icon.check(undefined, 16) : c.status==='locked' ? Icon.lock(undefined, 14) : c.n}
                   </div>
                   <div style={{flex:1, minWidth:0}}>
@@ -232,7 +232,7 @@ v1.Package = function({ dark }) {
                     <div style={{fontSize:11, color:fg2, marginTop:2}}>{c.lessons} درس · {c.dur}</div>
                     {c.status==='active' && (
                       <div style={{height:3, background: dark?'rgba(255,255,255,0.08)':'#F1F1F2', borderRadius:2, marginTop:8, overflow:'hidden'}}>
-                        <div style={{height:'100%', width:`${c.progress*100}%`, background:'#AE1F24'}}/>
+                        <div style={{height:'100%', width:`${c.progress*100}%`, background:'#0B5FB0'}}/>
                       </div>
                     )}
                   </div>
@@ -246,9 +246,9 @@ v1.Package = function({ dark }) {
         <div style={{position:'sticky', bottom:0, padding:'12px 20px 28px', background: dark?'rgba(14,14,16,0.92)':'rgba(247,244,238,0.92)', backdropFilter:'blur(12px)', borderTop:`1px solid ${border}`, display:'flex', gap:10, alignItems:'center'}}>
             <div style={{flex:1}}>
               <div style={{fontSize:11, color:fg2}}>السعر</div>
-              <div style={{fontSize:18, fontWeight:800, color:'#AE1F24'}}>مجاني <span style={{fontSize:11, color:fg2, fontWeight:500}}>· التحاق مباشر</span></div>
+              <div style={{fontSize:18, fontWeight:800, color:'#0B5FB0'}}>مجاني <span style={{fontSize:11, color:fg2, fontWeight:500}}>· التحاق مباشر</span></div>
             </div>
-            <button style={{padding:'14px 24px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:10, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700}}>التحق بالباقة</button>
+            <button style={{padding:'14px 24px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:10, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700}}>التحق بالباقة</button>
           </div>
       </div>
     </Phone>
@@ -260,7 +260,7 @@ v1.Course = function({ dark }) {
   const cardBg = dark ? '#1C1C1E' : '#fff';
   const fg = dark ? '#fff' : '#1A1A1A';
   const fg2 = dark ? 'rgba(255,255,255,0.65)' : '#5A5A5A';
-  const pageBg = dark ? '#0E0E10' : '#F7F4EE';
+  const pageBg = dark ? '#0E0E10' : '#F0F7FB';
   const border = dark ? 'rgba(255,255,255,0.08)' : '#E2E4E5';
 
   return (
@@ -268,7 +268,7 @@ v1.Course = function({ dark }) {
       <div style={{height:'100%', overflow:'auto'}}>
         {/* Player thumbnail */}
         <div style={{position:'relative', height:220, background:'#1A1A1A', overflow:'hidden'}}>
-          <CourseThumb seed={3} color="#AE1F24" h={220}/>
+          <CourseThumb seed={3} color="#0B5FB0" h={220}/>
           <div style={{position:'absolute', inset:0, background:'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.6) 100%)'}}/>
           <div style={{position:'absolute', top:50, left:16, display:'flex', gap:10}}>
             <div style={{width:36, height:36, borderRadius:10, background:'rgba(255,255,255,0.2)', backdropFilter:'blur(10px)', display:'flex', alignItems:'center', justifyContent:'center'}}>
@@ -277,7 +277,7 @@ v1.Course = function({ dark }) {
           </div>
           <div style={{position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center'}}>
             <div style={{width:64, height:64, borderRadius:99, background:'rgba(255,255,255,0.95)', display:'flex', alignItems:'center', justifyContent:'center'}}>
-              {Icon.play('#AE1F24', 22)}
+              {Icon.play('#0B5FB0', 22)}
             </div>
           </div>
           <div style={{position:'absolute', bottom:14, left:16, right:16, color:'#fff'}}>
@@ -289,19 +289,19 @@ v1.Course = function({ dark }) {
         {/* Tabs */}
         <div style={{display:'flex', gap:0, padding:'0 20px', borderBottom:`1px solid ${border}`}}>
           {[['الدروس', true],['الملفات',false],['نقاش',false],['ملاحظاتي',false]].map(([t,a]) => (
-            <div key={t} style={{flex:1, padding:'14px 4px', textAlign:'center', fontSize:13, fontWeight: a?700:500, color: a?'#AE1F24':fg2, borderBottom: a?'2px solid #AE1F24':'2px solid transparent', marginBottom:-1}}>{t}</div>
+            <div key={t} style={{flex:1, padding:'14px 4px', textAlign:'center', fontSize:13, fontWeight: a?700:500, color: a?'#0B5FB0':fg2, borderBottom: a?'2px solid #0B5FB0':'2px solid transparent', marginBottom:-1}}>{t}</div>
           ))}
         </div>
 
         {/* Course header */}
         <div style={{padding:'18px 20px 8px'}}>
-          <div style={{fontSize:11, color:'#AE1F24', fontWeight:700, marginBottom:4}}>دورة ٣ من ٥ · باقة العقيدة</div>
+          <div style={{fontSize:11, color:'#0B5FB0', fontWeight:700, marginBottom:4}}>دورة ٣ من ٥ · باقة العقيدة</div>
           <h1 style={{margin:0, fontSize:20, fontWeight:700, color:fg, lineHeight:1.3}}>توحيد الألوهية</h1>
           <div style={{display:'flex', gap:12, fontSize:11, color:fg2, marginTop:6}}>
             <span>١٠ دروس</span><span>·</span><span>٥ ساعات</span><span>·</span><span>المستوى الأول</span>
           </div>
           <div style={{height:5, background: dark?'rgba(255,255,255,0.08)':'#F1F1F2', borderRadius:3, marginTop:12, overflow:'hidden'}}>
-            <div style={{height:'100%', width:'40%', background:'#AE1F24'}}/>
+            <div style={{height:'100%', width:'40%', background:'#0B5FB0'}}/>
           </div>
           <div style={{fontSize:11, color:fg2, marginTop:6}}>أتممت ٤ دروس من ١٠ — ٤٠٪</div>
         </div>
@@ -311,10 +311,10 @@ v1.Course = function({ dark }) {
           {LESSONS.map(l => (
             <div key={l.n} style={{
               display:'flex', gap:12, padding:14, alignItems:'center',
-              background: l.current ? (dark?'rgba(174,31,36,0.15)':'rgba(174,31,36,0.06)') : cardBg,
-              border:`1px solid ${l.current?'#AE1F24':border}`, borderRadius:10
+              background: l.current ? (dark?'rgba(11,95,176,0.15)':'rgba(11,95,176,0.06)') : cardBg,
+              border:`1px solid ${l.current?'#0B5FB0':border}`, borderRadius:10
             }}>
-              <div style={{width:30, height:30, borderRadius:99, background: l.done?'rgba(46,125,91,0.15)' : l.current?'#AE1F24':(dark?'rgba(255,255,255,0.05)':'#F1F1F2'), color: l.done?'#2E7D5B' : l.current?'#fff':fg2, display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700, fontSize:11, flexShrink:0}}>
+              <div style={{width:30, height:30, borderRadius:99, background: l.done?'rgba(46,125,91,0.15)' : l.current?'#0B5FB0':(dark?'rgba(255,255,255,0.05)':'#F1F1F2'), color: l.done?'#2E7D5B' : l.current?'#fff':fg2, display:'flex', alignItems:'center', justifyContent:'center', fontWeight:700, fontSize:11, flexShrink:0}}>
                 {l.done ? Icon.check(undefined, 14) : l.current ? Icon.play('#fff', 11) : l.n}
               </div>
               <div style={{flex:1, minWidth:0}}>
@@ -339,7 +339,7 @@ v1.Login = function({ dark }) {
   const fg2 = dark ? 'rgba(255,255,255,0.65)' : '#5A5A5A';
   const pageBg = dark ? '#0E0E10' : '#fff';
   const border = dark ? 'rgba(255,255,255,0.08)' : '#E2E4E5';
-  const inpBg = dark ? 'rgba(255,255,255,0.04)' : '#F7F4EE';
+  const inpBg = dark ? 'rgba(255,255,255,0.04)' : '#F0F7FB';
 
   return (
     <Phone dark={dark} bg={pageBg}>
@@ -365,11 +365,11 @@ v1.Login = function({ dark }) {
           <div>
             <label style={{fontSize:12, color:fg2, fontWeight:500, marginBottom:6, display:'flex', justifyContent:'space-between'}}>
               <span>كلمة المرور</span>
-              <span style={{color:'#AE1F24'}}>نسيتها؟</span>
+              <span style={{color:'#0B5FB0'}}>نسيتها؟</span>
             </label>
             <div style={{padding:'14px 14px', background:inpBg, border:`1px solid ${border}`, borderRadius:10, fontSize:14, color:fg, letterSpacing:'4px'}}>••••••••</div>
           </div>
-          <button style={{padding:'15px', background:'#AE1F24', color:'#fff', border:'none', borderRadius:10, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, marginTop:6}}>تسجيل الدخول</button>
+          <button style={{padding:'15px', background:'#0B5FB0', color:'#fff', border:'none', borderRadius:10, fontFamily:'var(--font-arabic)', fontSize:14, fontWeight:700, marginTop:6}}>تسجيل الدخول</button>
         </div>
 
         {/* Divider */}
@@ -388,7 +388,7 @@ v1.Login = function({ dark }) {
 
         {/* Sign up */}
         <div style={{marginTop:'auto', textAlign:'center', fontSize:13, color:fg2, paddingTop:24}}>
-          لا تملك حساباً؟ <span style={{color:'#AE1F24', fontWeight:700}}>أنشئ حساباً</span>
+          لا تملك حساباً؟ <span style={{color:'#0B5FB0', fontWeight:700}}>أنشئ حساباً</span>
         </div>
       </div>
     </Phone>
@@ -399,14 +399,14 @@ v1.Profile = function({ dark }) {
   const cardBg = dark ? '#1C1C1E' : '#fff';
   const fg = dark ? '#fff' : '#1A1A1A';
   const fg2 = dark ? 'rgba(255,255,255,0.65)' : '#5A5A5A';
-  const pageBg = dark ? '#0E0E10' : '#F7F4EE';
+  const pageBg = dark ? '#0E0E10' : '#F0F7FB';
   const border = dark ? 'rgba(255,255,255,0.08)' : '#E2E4E5';
 
   return (
     <Phone dark={dark} bg={pageBg}>
       <div style={{height:'calc(100% - 84px)', overflow:'auto', paddingBottom:20}}>
         {/* Header banner */}
-        <div style={{position:'relative', padding:'40px 20px 28px', background:'#AE1F24', overflow:'hidden'}}>
+        <div style={{position:'relative', padding:'40px 20px 28px', background:'#0B5FB0', overflow:'hidden'}}>
           <PatternBg color="#fff" opacity={0.12} scale={150}/>
           <div style={{display:'flex', justifyContent:'flex-start', position:'relative', marginBottom:20}}>
             <div style={{width:36, height:36, borderRadius:10, background:'rgba(255,255,255,0.18)', backdropFilter:'blur(10px)'}}/>
@@ -424,7 +424,7 @@ v1.Profile = function({ dark }) {
         <div style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:8, padding:'16px 20px'}}>
           {[['١٢','دورة'], ['٣','شهادات'], ['٨٤','ساعة']].map(([n,l],i) => (
             <div key={i} style={{padding:'12px 8px', background:cardBg, border:`1px solid ${border}`, borderRadius:10, textAlign:'center'}}>
-              <div style={{fontSize:22, fontWeight:800, color:'#AE1F24', fontFamily:'var(--font-latin)'}}>{n}</div>
+              <div style={{fontSize:22, fontWeight:800, color:'#0B5FB0', fontFamily:'var(--font-latin)'}}>{n}</div>
               <div style={{fontSize:11, color:fg2, marginTop:2}}>{l}</div>
             </div>
           ))}
@@ -473,8 +473,8 @@ v1.Profile = function({ dark }) {
       <div style={{position:'absolute', bottom:0, left:0, right:0, height:84, background: dark?'rgba(28,28,30,0.95)':'#fff', borderTop:`1px solid ${border}`, display:'flex', justifyContent:'space-around', paddingTop:8}}>
         {[['home','الرئيسية',false],['compass','استكشف',false],['bookmark','دوراتي',false],['user','حسابي',true]].map(([ic, lbl, act]) => (
           <div key={lbl} style={{display:'flex', flexDirection:'column', alignItems:'center', gap:3}}>
-            {Icon[ic]( act?'#AE1F24':fg2, 22, act?'#AE1F24':'none')}
-            <div style={{fontSize:10, color: act?'#AE1F24':fg2, fontWeight: act?700:500}}>{lbl}</div>
+            {Icon[ic]( act?'#0B5FB0':fg2, 22, act?'#0B5FB0':'none')}
+            <div style={{fontSize:10, color: act?'#0B5FB0':fg2, fontWeight: act?700:500}}>{lbl}</div>
           </div>
         ))}
       </div>
@@ -487,7 +487,7 @@ v1.Instructors = function({ dark }) {
   const cardBg = dark ? '#1C1C1E' : '#fff';
   const fg = dark ? '#fff' : '#1A1A1A';
   const fg2 = dark ? 'rgba(255,255,255,0.65)' : '#5A5A5A';
-  const pageBg = dark ? '#0E0E10' : '#F7F4EE';
+  const pageBg = dark ? '#0E0E10' : '#F0F7FB';
   const border = dark ? 'rgba(255,255,255,0.08)' : '#E2E4E5';
 
   return (
@@ -500,7 +500,7 @@ v1.Instructors = function({ dark }) {
 
         <div style={{display:'flex', gap:8, padding:'12px 20px', overflowX:'auto'}}>
           {['الكل','العقيدة','الفقه','التفسير','الحديث','تخصصي'].map((c,i) => (
-            <span key={c} style={{flex:'0 0 auto', padding:'8px 14px', borderRadius:99, fontSize:12, fontWeight:600, background: i===0?'#AE1F24':cardBg, color: i===0?'#fff':fg, border:`1px solid ${i===0?'#AE1F24':border}`}}>{c}</span>
+            <span key={c} style={{flex:'0 0 auto', padding:'8px 14px', borderRadius:99, fontSize:12, fontWeight:600, background: i===0?'#0B5FB0':cardBg, color: i===0?'#fff':fg, border:`1px solid ${i===0?'#0B5FB0':border}`}}>{c}</span>
           ))}
         </div>
 
@@ -511,7 +511,7 @@ v1.Instructors = function({ dark }) {
               <div style={{flex:1, minWidth:0}}>
                 <div style={{display:'flex', alignItems:'center', gap:6, marginBottom:2}}>
                   <span style={{fontSize:14, fontWeight:700, color:fg}}>{i.name}</span>
-                  {i.badge && <span style={{fontSize:9, fontWeight:700, color:'#fff', background:'#AE1F24', padding:'2px 6px', borderRadius:4}}>{i.badge}</span>}
+                  {i.badge && <span style={{fontSize:9, fontWeight:700, color:'#fff', background:'#0B5FB0', padding:'2px 6px', borderRadius:4}}>{i.badge}</span>}
                 </div>
                 <div style={{fontSize:11, color:fg2, marginBottom:8}}>{i.title}</div>
                 <div style={{display:'flex', gap:14, fontSize:11, color:fg2, alignItems:'center'}}>
@@ -527,8 +527,8 @@ v1.Instructors = function({ dark }) {
       <div style={{position:'absolute', bottom:0, left:0, right:0, height:84, background: dark?'rgba(28,28,30,0.95)':'#fff', borderTop:`1px solid ${border}`, display:'flex', justifyContent:'space-around', paddingTop:8}}>
         {[['home','الرئيسية',false],['compass','استكشف',true],['bookmark','دوراتي',false],['user','حسابي',false]].map(([ic, lbl, act]) => (
           <div key={lbl} style={{display:'flex', flexDirection:'column', alignItems:'center', gap:3}}>
-            {Icon[ic]( act?'#AE1F24':fg2, 22, act?'#AE1F24':'none')}
-            <div style={{fontSize:10, color: act?'#AE1F24':fg2, fontWeight: act?700:500}}>{lbl}</div>
+            {Icon[ic]( act?'#0B5FB0':fg2, 22, act?'#0B5FB0':'none')}
+            <div style={{fontSize:10, color: act?'#0B5FB0':fg2, fontWeight: act?700:500}}>{lbl}</div>
           </div>
         ))}
       </div>

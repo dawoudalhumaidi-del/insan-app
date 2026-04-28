@@ -25,14 +25,14 @@
 
 :root {
   /* ============ COLOR — primary maroon =========================== */
-  --insan-maroon-100: #AE1F24;     /* brand spec */
-  --insan-maroon-80:  #BE4B4F;     /* 80% tint */
-  --insan-maroon-60:  #CE787B;     /* 60% tint */
-  --insan-maroon-40:  #DEA5A7;     /* 40% tint */
-  --insan-maroon-20:  #EFD2D3;     /* 20% tint */
-  --insan-maroon-10:  #F8E9E9;     /* 10% wash for backgrounds */
-  --insan-maroon-dark: #931A1F;    /* hover/press */
-  --insan-maroon-darker: #761417;  /* deep press */
+  --insan-maroon-100: #0B5FB0;     /* brand spec */
+  --insan-maroon-80:  #3C82BD;     /* 80% tint */
+  --insan-maroon-60:  #6BA5CB;     /* 60% tint */
+  --insan-maroon-40:  #9BC8DA;     /* 40% tint */
+  --insan-maroon-20:  #CBE5EE;     /* 20% tint */
+  --insan-maroon-10:  #E8F2F8;     /* 10% wash for backgrounds */
+  --insan-maroon-dark: #084A8A;    /* hover/press */
+  --insan-maroon-darker: #063568;  /* deep press */
 
   /* ============ COLOR — secondary gray =========================== */
   --insan-gray-100: #71767C;       /* brand spec */
@@ -43,7 +43,7 @@
   --insan-gray-10:  #F1F1F2;
 
   /* ============ NEUTRALS ========================================= */
-  --insan-paper:   #F7F4EE;        /* warm off-white background */
+  --insan-paper:   #F0F7FB;        /* warm off-white background */
   --insan-white:   #FFFFFF;
   --insan-ink:     #1A1A1A;        /* body text */
   --insan-ink-2:   #3A3A3A;        /* secondary text */
@@ -134,7 +134,7 @@
   --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.06);
   --shadow-md: 0 4px 16px rgba(20, 20, 20, 0.08);
   --shadow-lg: 0 12px 36px rgba(20, 20, 20, 0.10);
-  --shadow-focus: 0 0 0 3px rgba(174, 31, 36, 0.25);
+  --shadow-focus: 0 0 0 3px rgba(11,95,176, 0.25);
 
   /* ============ MOTION ============================================ */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
