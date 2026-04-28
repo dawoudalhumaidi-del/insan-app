@@ -2,7 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0B5FB0">
   <title>تطبيق الدورات الإسلامية — إنسان</title>
   <link rel="stylesheet" href="assets/colors_and_type.css">
   <style>
@@ -13,9 +17,48 @@
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overscroll-behavior: none;
+      touch-action: manipulation;
     }
     body[data-theme="dark"] { background: #0E0E10; }
-    #root { width: 100vw; height: 100vh; }
+
+    /* Mobile (phones): fill the screen exactly like a native iPhone app */
+    #root {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh; /* dynamic viewport — accounts for iOS browser bars */
+      overflow: hidden;
+    }
+
+    /* Desktop / tablet: center an iPhone-shaped frame */
+    @media (min-width: 600px) {
+      body {
+        background: #1a1a1f radial-gradient(circle at 50% 0%, #2a2a32 0%, #0e0e10 70%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      body[data-theme="dark"] { background: #050506; }
+      #root {
+        position: relative;
+        inset: auto;
+        width: min(420px, 92vw);
+        height: min(900px, 92vh);
+        aspect-ratio: 9 / 19.5;
+        max-height: 92vh;
+        border-radius: 44px;
+        overflow: hidden;
+        box-shadow:
+          0 0 0 10px #0a0a0c,
+          0 0 0 12px #2a2a30,
+          0 30px 80px rgba(0,0,0,0.6),
+          0 10px 30px rgba(0,0,0,0.4);
+      }
+      /* Hide background pattern on desktop so it doesn't bleed outside the phone */
+      body::before { display: none; }
+    }
     * { -webkit-tap-highlight-color: transparent; }
     button { cursor: pointer; }
     input { font-family: inherit; }
