@@ -1,0 +1,170 @@
+/* ============================================================
+   Insan Charity Design System — Tokens
+   جمعية إنسان الخيرية — الرموز التصميمية
+   ============================================================ */
+
+/* --- Fonts ---------------------------------------------------
+   Primary face is Helvetica Neue LT Arabic (paid).
+   We substitute IBM Plex Sans Arabic via Google Fonts for now.
+   If licensed files are added to /fonts/, prefer them via @font-face. */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+/* If/when licensed Helvetica Neue LT Arabic files exist, uncomment:
+@font-face {
+  font-family: 'Helvetica Neue LT Arabic';
+  src: url('/fonts/HelveticaNeueLTArabic-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Helvetica Neue LT Arabic';
+  src: url('/fonts/HelveticaNeueLTArabic-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+*/
+
+:root {
+  /* ============ COLOR — primary maroon =========================== */
+  --insan-maroon-100: #AE1F24;     /* brand spec */
+  --insan-maroon-80:  #BE4B4F;     /* 80% tint */
+  --insan-maroon-60:  #CE787B;     /* 60% tint */
+  --insan-maroon-40:  #DEA5A7;     /* 40% tint */
+  --insan-maroon-20:  #EFD2D3;     /* 20% tint */
+  --insan-maroon-10:  #F8E9E9;     /* 10% wash for backgrounds */
+  --insan-maroon-dark: #931A1F;    /* hover/press */
+  --insan-maroon-darker: #761417;  /* deep press */
+
+  /* ============ COLOR — secondary gray =========================== */
+  --insan-gray-100: #71767C;       /* brand spec */
+  --insan-gray-80:  #8D9197;
+  --insan-gray-60:  #A9ADB1;
+  --insan-gray-40:  #C6C8CB;
+  --insan-gray-20:  #E2E4E5;
+  --insan-gray-10:  #F1F1F2;
+
+  /* ============ NEUTRALS ========================================= */
+  --insan-paper:   #F7F4EE;        /* warm off-white background */
+  --insan-white:   #FFFFFF;
+  --insan-ink:     #1A1A1A;        /* body text */
+  --insan-ink-2:   #3A3A3A;        /* secondary text */
+  --insan-ink-3:   #5A5A5A;        /* tertiary */
+
+  /* ============ SEMANTIC FOREGROUNDS ============================= */
+  --fg-1: var(--insan-ink);            /* primary text */
+  --fg-2: var(--insan-ink-2);          /* secondary text */
+  --fg-3: var(--insan-gray-100);       /* tertiary text / metadata */
+  --fg-on-maroon: var(--insan-white);  /* text on maroon */
+  --fg-link: var(--insan-maroon-100);
+  --fg-link-hover: var(--insan-maroon-dark);
+
+  /* ============ SEMANTIC BACKGROUNDS ============================= */
+  --bg-page:    var(--insan-white);
+  --bg-paper:   var(--insan-paper);
+  --bg-card:    var(--insan-white);
+  --bg-muted:   var(--insan-gray-10);
+  --bg-accent:  var(--insan-maroon-10);
+  --bg-strong:  var(--insan-maroon-100);
+
+  /* ============ SEMANTIC BORDERS ================================= */
+  --border-soft:   var(--insan-gray-20);
+  --border-strong: var(--insan-gray-40);
+  --border-brand:  var(--insan-maroon-100);
+
+  /* ============ STATE COLORS (sober, brand-aligned) =============== */
+  --state-success: #2E7D5B;        /* desaturated, calm */
+  --state-warning: #C68B14;
+  --state-danger:  #B23A3A;        /* close to brand maroon */
+  --state-info:    var(--insan-gray-100);
+
+  /* ============ TYPE — families ================================== */
+  --font-arabic: 'Helvetica Neue LT Arabic', 'IBM Plex Sans Arabic', 'Tahoma', sans-serif;
+  --font-latin:  'Helvetica Neue LT Arabic', 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:   ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ============ TYPE — sizes (px-equivalents in rem) ============= */
+  --fs-xs:   0.75rem;   /* 12 — fine print, captions  */
+  --fs-sm:   0.875rem;  /* 14 — meta, labels          */
+  --fs-base: 1rem;      /* 16 — body                  */
+  --fs-md:   1.125rem;  /* 18 — lead body             */
+  --fs-lg:   1.375rem;  /* 22 — h4 / strong body      */
+  --fs-xl:   1.75rem;   /* 28 — h3                    */
+  --fs-2xl:  2.25rem;   /* 36 — h2                    */
+  --fs-3xl:  3rem;      /* 48 — h1                    */
+  --fs-4xl:  4rem;      /* 64 — display               */
+  --fs-5xl:  5.5rem;    /* 88 — hero display          */
+
+  /* ============ TYPE — weights ==================================== */
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold: 600;
+  --fw-bold:    700;
+
+  /* ============ TYPE — line-heights =============================== */
+  --lh-tight:  1.15;    /* display, headlines */
+  --lh-snug:   1.3;     /* h2/h3 */
+  --lh-normal: 1.55;    /* body */
+  --lh-loose:  1.75;    /* long-form Arabic body */
+
+  /* ============ TYPE — tracking =================================== */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;     /* eyebrow / label */
+
+  /* ============ SPACING (8-pt grid) ============================== */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ============ RADII ============================================ */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* ============ SHADOWS ========================================== */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.06);
+  --shadow-md: 0 4px 16px rgba(20, 20, 20, 0.08);
+  --shadow-lg: 0 12px 36px rgba(20, 20, 20, 0.10);
+  --shadow-focus: 0 0 0 3px rgba(174, 31, 36, 0.25);
+
+  /* ============ MOTION ============================================ */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0.0, 0, 0.2, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 240ms;
+  --duration-slow:   480ms;
+
+  /* ============ LAYOUT ============================================ */
+  --container-max: 1200px;
+  --header-h: 72px;
+}
+
+/* ============================================================
+   SEMANTIC HEADING & TEXT STYLES
+   Apply these as utility classes or compose in components.
+   ============================================================ */
+
+.is-display   { font-family: var(--font-arabic); font-size: var(--fs-5xl); line-height: var(--lh-tight); font-weight: var(--fw-bold); color: var(--insan-maroon-100); letter-spacing: var(--tracking-tight); }
+.is-h1        { font-family: var(--font-arabic); font-size: var(--fs-3xl); line-height: var(--lh-tight); font-weight: var(--fw-bold); color: var(--fg-1); }
+.is-h2        { font-family: var(--font-arabic); font-size: var(--fs-2xl); line-height: var(--lh-snug); font-weight: var(--fw-bold); color: var(--fg-1); }
+.is-h3        { font-family: var(--font-arabic); font-size: var(--fs-xl);  line-height: var(--lh-snug); font-weight: var(--fw-semibold); color: var(--fg-1); }
+.is-h4        { font-family: var(--font-arabic); font-size: var(--fs-lg);  line-height: var(--lh-snug); font-weight: var(--fw-semibold); color: var(--fg-1); }
+.is-lead      { font-family: var(--font-arabic); font-size: var(--fs-md);  line-height: var(--lh-loose); font-weight: var(--fw-regular); color: var(--fg-2); }
+.is-body      { font-family: var(--font-arabic); font-size: var(--fs-base);line-height: var(--lh-loose); font-weight: var(--fw-regular); color: var(--fg-1); }
+.is-meta      { font-family: var(--font-arabic); font-size: var(--fs-sm);  line-height: var(--lh-normal); font-weight: var(--fw-regular); color: var(--fg-3); }
+.is-caption   { font-family: var(--font-arabic); font-size: var(--fs-xs);  line-height: var(--lh-normal); font-weight: var(--fw-regular); color: var(--fg-3); }
+.is-eyebrow   { font-family: var(--font-arabic); font-size: var(--fs-sm);  line-height: var(--lh-normal); font-weight: var(--fw-semibold); color: var(--insan-maroon-100); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+.is-quote     { font-family: var(--font-arabic); font-size: var(--fs-lg);  line-height: var(--lh-loose); font-weight: var(--fw-medium); color: var(--fg-1); font-style: italic; }
+.is-quranic   { font-family: var(--font-arabic); font-size: var(--fs-xl);  line-height: 2; font-weight: var(--fw-medium); color: var(--insan-maroon-100); text-align: center; }
+
+/* RTL flip helpers for bidirectional layouts */
+[dir="rtl"] .is-eyebrow { letter-spacing: 0; }

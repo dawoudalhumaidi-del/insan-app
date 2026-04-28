@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق الدورات الإسلامية — إنسان</title>
+  <link rel="stylesheet" href="assets/colors_and_type.css">
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: var(--font-arabic);
+      background: #ECECEE;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body[data-theme="dark"] { background: #0E0E10; }
+    #root { width: 100vw; height: 100vh; }
+    * { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    input { font-family: inherit; }
+    mark { color: inherit; }
+
+    /* ────────── Page transitions */
+    .phone-layer { animation-fill-mode: both; }
+    @keyframes pushIn   { from { transform: translateX(-100%); opacity: 0.7; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes pushPrev { from { transform: translateX(0) scale(1); filter: brightness(1); } to { transform: translateX(28%) scale(0.96); filter: brightness(0.7); } }
+    @keyframes popIn    { from { transform: translateX(0); } to { transform: translateX(-100%); opacity: 0.5; } }
+    @keyframes fadeIn   { from { transform: scale(1.02); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .phone-layer.push-in   { animation: pushIn   380ms cubic-bezier(0.32, 0.72, 0, 1); }
+    .phone-layer.push-prev { animation: pushPrev 380ms cubic-bezier(0.32, 0.72, 0, 1) forwards; z-index: 0; }
+    .phone-layer.pop-in    { animation: popIn    340ms cubic-bezier(0.32, 0.72, 0, 1) forwards; z-index: 1; }
+    .phone-layer.fade-in   { animation: fadeIn   320ms ease; }
+
+    /* ────────── Stagger entrance (any descendant with .stagger-item appears in cascade) */
+    @keyframes staggerUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .stagger-item { animation: staggerUp 480ms cubic-bezier(0.32, 0.72, 0, 1) backwards; }
+
+    /* ────────── Equalizer bars (active lesson, audio waveform) */
+    @keyframes barPulse {
+      0%, 100% { transform: scaleY(0.4); }
+      50%      { transform: scaleY(1.4); }
+    }
+    .bar-pulse { transform-origin: bottom; animation: barPulse 0.9s ease-in-out infinite; }
+
+    /* ────────── Pulsing dot (live indicator) */
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7); }
+      50%      { box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
+    }
+    .pulse-dot { animation: pulseDot 1.5s ease-out infinite; }
+
+    /* ────────── Float (subtle hover) */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    /* ────────── Splash */
+    @keyframes splashPop {
+      0% { transform: scale(0.6); opacity: 0; }
+      55% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes splashFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes splashLoad {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+    .splash-pop    { animation: splashPop 700ms cubic-bezier(0.32, 0.72, 0, 1) backwards; }
+    .splash-fade   { animation: splashFade 600ms 300ms ease backwards; }
+    .splash-loader { animation: splashLoad 1200ms 200ms ease forwards; width: 0; }
+
+    /* ────────── Bottom Sheet */
+    @keyframes sheetIn       { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    @keyframes sheetOut      { from { transform: translateY(0); }    to { transform: translateY(100%); } }
+    @keyframes backdropIn    { from { opacity: 0; }                  to { opacity: 1; } }
+    @keyframes backdropOut   { from { opacity: 1; }                  to { opacity: 0; } }
+    .sheet-in           { animation: sheetIn 320ms cubic-bezier(0.32, 0.72, 0, 1); }
+    .sheet-out          { animation: sheetOut 280ms cubic-bezier(0.4, 0, 1, 1) forwards; }
+    .sheet-backdrop-in  { animation: backdropIn 280ms ease; }
+    .sheet-backdrop-out { animation: backdropOut 240ms ease forwards; }
+
+    /* ────────── Confetti */
+    @keyframes confettiFall {
+      0%   { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(900px) rotate(720deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: absolute; top: 0;
+      animation: confettiFall ease-out forwards;
+    }
+
+    /* ────────── Bounce-in (achievement) */
+    @keyframes bounceIn {
+      0%   { transform: scale(0); opacity: 0; }
+      55%  { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+    /* ────────── Certificate flip */
+    @keyframes certFlip {
+      0%   { transform: rotateY(90deg) scale(0.85); opacity: 0; }
+      60%  { transform: rotateY(-10deg) scale(1.02); opacity: 1; }
+      100% { transform: rotateY(0deg) scale(1); }
+    }
+
+    /* ────────── Fade up (quiz question) */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ────────── Shimmer skeleton */
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ────────── Toast pop */
+    @keyframes toastPop {
+      from { transform: translateY(-12px) scale(0.92); opacity: 0; }
+      to   { transform: translateY(0)     scale(1);    opacity: 1; }
+    }
+    .toast-pop { animation: toastPop 360ms cubic-bezier(0.32, 0.72, 0, 1); }
+
+    /* ────────── Flame pulse (streak) */
+    @keyframes flamePulse {
+      0%, 100% { transform: scale(1) rotate(-2deg); }
+      50%      { transform: scale(1.12) rotate(2deg); }
+    }
+    .flame-pulse { display: inline-block; animation: flamePulse 1.6s ease-in-out infinite; }
+
+    /* ────────── FAB ring */
+    @keyframes fabRing {
+      0%   { box-shadow: 0 14px 30px rgba(174,31,36,0.45), 0 0 0 0 rgba(174,31,36,0.5); }
+      70%  { box-shadow: 0 14px 30px rgba(174,31,36,0.45), 0 0 0 18px rgba(174,31,36,0); }
+      100% { box-shadow: 0 14px 30px rgba(174,31,36,0.45), 0 0 0 0 rgba(174,31,36,0); }
+    }
+    @keyframes fabPop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .fab-pop { animation: fabPop 480ms 200ms cubic-bezier(0.32, 0.72, 0, 1) backwards, fabRing 2.6s ease-out infinite 700ms; }
+
+    /* ────────── Mini player slide in */
+    @keyframes miniIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .mini-player-in { animation: miniIn 360ms cubic-bezier(0.32, 0.72, 0, 1); }
+
+    /* ────────── Selection color */
+    ::selection { background: rgba(174,31,36,0.25); color: inherit; }
+
+    /* ────────── Focus rings on inputs */
+    input:focus, textarea:focus { outline: 2px solid rgba(174,31,36,0.4); outline-offset: 1px; }
+
+    /* ────────── Search spin (duel matchmaking) */
+    @keyframes searchSpin {
+      0%   { transform: rotate(-15deg) scale(1); }
+      50%  { transform: rotate(15deg)  scale(1.08); }
+      100% { transform: rotate(-15deg) scale(1); }
+    }
+    .search-spin { display: inline-block; animation: searchSpin 1.4s ease-in-out infinite; }
+
+    /* ────────── Dot wave (typing / loading) */
+    @keyframes dotWave {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30%           { transform: translateY(-6px); opacity: 1; }
+    }
+    .dot-wave { animation: dotWave 1.2s ease-in-out infinite; }
+
+    /* ────────── Timer pulse (duel) */
+    @keyframes timerPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(174,31,36,0.6); }
+      50%      { box-shadow: 0 0 0 10px rgba(174,31,36,0); }
+    }
+    .timer-pulse { animation: timerPulse 1s ease-out infinite; }
+
+    /* ────────── Bounce tag (start hint) */
+    @keyframes bounceTag {
+      0%, 100% { transform: translateY(0) translateX(50%); }
+      50%      { transform: translateY(-3px) translateX(50%); }
+    }
+    .bounce-tag { animation: bounceTag 1s ease-in-out infinite; }
+
+    /* ────────── Hide scrollbars in phone screens */
+    .phone-layer ::-webkit-scrollbar { display: none; }
+    .phone-layer * { scrollbar-width: none; }
+
+    /* ────────── Subtle pattern accent on app bg */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.03;
+      background-image: url('assets/patterns/insan-tile.svg');
+      background-size: 220px;
+      mix-blend-mode: multiply;
+    }
+    body[data-theme="dark"]::before { mix-blend-mode: screen; opacity: 0.04; }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="src/data.jsx"></script>
+  <script type="text/babel" src="src/shared.jsx"></script>
+  <script type="text/babel" src="src/i18n.jsx"></script>
+  <script type="text/babel" src="src/game-state.jsx"></script>
+  <script type="text/babel" src="src/variant-modern.jsx"></script>
+  <script type="text/babel" src="src/ui-kit.jsx"></script>
+  <script type="text/babel" src="src/screens-extra.jsx"></script>
+  <script type="text/babel" src="src/screens-path.jsx"></script>
+  <script type="text/babel" src="src/app.jsx"></script>
+</body>
+</html>

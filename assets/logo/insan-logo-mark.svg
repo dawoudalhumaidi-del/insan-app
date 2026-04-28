@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 540" aria-label="Insan logo">
+  
+  <rect width="400" height="540" fill="#A03238"></rect>
+  
+  <g fill="#FFFFFF">
+    
+    <path d="M178 78 C 168 60 168 38 184 24 C 198 38 200 60 192 78 C 188 92 182 92 178 78 Z"></path>
+    
+    <text x="200" y="380" text-anchor="middle" font-family="&#39;Aref Ruqaa&#39;,&#39;Amiri Quran&#39;,&#39;Helvetica Neue LT Arabic&#39;,serif" font-size="280" font-weight="700" fill="#FFFFFF" direction="rtl">إنسان</text>
+  </g>
+</svg>

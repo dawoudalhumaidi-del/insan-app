@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#F4D7A1"></stop>
+      <stop offset="55%" stop-color="#E89E5A"></stop>
+      <stop offset="100%" stop-color="#7A2A1F"></stop>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.7" cy="0.45" r="0.2">
+      <stop offset="0%" stop-color="#FFE9B8" stop-opacity="0.9"></stop>
+      <stop offset="100%" stop-color="#FFE9B8" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#sky)"></rect>
+  <rect width="400" height="300" fill="url(#sun)"></rect>
+  
+  <g fill="#3A1410" opacity="0.85">
+    <path d="M0 220 L20 220 L20 200 L40 200 L40 215 L70 215 L70 195 L85 195 L85 188 L92 188 L92 195 L110 195 L110 210 L140 210 L140 200 L160 200 L160 192 L168 187 L168 192 L175 195 L175 210 L210 210 L210 195 L230 195 L230 200 L260 200 L260 215 L290 215 L290 198 L310 198 L310 188 L320 188 L320 198 L340 198 L340 210 L380 210 L380 220 L400 220 L400 300 L0 300 Z"></path>
+  </g>
+  
+  <g fill="#1A0808" opacity="0.92">
+    <path d="M180 220 Q180 175 200 170 Q220 175 220 220 Z"></path>
+    <rect x="170" y="220" width="60" height="50"></rect>
+    <path d="M200 165 L203 173 L197 173 Z"></path>
+    
+    <rect x="240" y="180" width="8" height="90"></rect>
+    <path d="M240 180 Q244 170 248 180 Z"></path>
+    <rect x="152" y="190" width="6" height="80"></rect>
+    <path d="M152 190 Q155 182 158 190 Z"></path>
+  </g>
+</svg>

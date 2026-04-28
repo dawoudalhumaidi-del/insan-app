@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2C1810"></stop>
+      <stop offset="100%" stop-color="#0D0604"></stop>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.4">
+      <stop offset="0%" stop-color="#E8B968" stop-opacity="0.6"></stop>
+      <stop offset="100%" stop-color="#E8B968" stop-opacity="0"></stop>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)"></rect>
+  <rect width="400" height="300" fill="url(#glow)"></rect>
+  
+  <g transform="translate(200 170)">
+    <path d="M -120 0 Q -60 -30 0 -10 Q 60 -30 120 0 L 120 70 Q 60 50 0 70 Q -60 50 -120 70 Z" fill="#F4E1B8"></path>
+    <path d="M -120 0 Q -60 -30 0 -10 L 0 60 Q -60 40 -120 60 Z" fill="#E8D2A0"></path>
+    <path d="M 0 -10 Q 60 -30 120 0 L 120 60 Q 60 40 0 60 Z" fill="#F4E1B8"></path>
+    
+    <g stroke="#8B5A2B" stroke-width="1" opacity="0.45">
+      <path d="M -100 5 L -20 0"></path>
+      <path d="M -100 18 L -20 13"></path>
+      <path d="M -100 30 L -20 26"></path>
+      <path d="M -100 42 L -20 38"></path>
+      <path d="M 20 0 L 100 5"></path>
+      <path d="M 20 13 L 100 18"></path>
+      <path d="M 20 26 L 100 30"></path>
+      <path d="M 20 38 L 100 42"></path>
+    </g>
+    <line x1="0" y1="-10" x2="0" y2="65" stroke="#5A3818" stroke-width="1" opacity="0.6"></line>
+  </g>
+  
+  <g transform="translate(330 80)">
+    <ellipse cx="0" cy="0" rx="22" ry="30" fill="#E8B968" opacity="0.25"></ellipse>
+    <ellipse cx="0" cy="0" rx="8" ry="14" fill="#FFD78A"></ellipse>
+  </g>
+</svg>

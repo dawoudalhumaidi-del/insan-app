@@ -1,0 +1,312 @@
+// Shared content data for the app — expanded for full interactive experience
+
+const PACKAGES = [
+  {
+    id: 'aqeedah-1',
+    title: 'العقيدة الإسلامية — المستوى الأول',
+    short: 'العقيدة · مستوى ١',
+    cat: 'العقيدة',
+    courses: 5,
+    hours: 24,
+    students: 12480,
+    price: 0,
+    label: 'مجاني',
+    color: '#AE1F24',
+    desc: 'باقة متكاملة تأسيسية في العقيدة على منهج أهل السنة والجماعة، تشمل توحيد الربوبية والألوهية والأسماء والصفات وأركان الإيمان.',
+    instructor: 'د. عبدالله بن صالح الحميد',
+    photo: 'assets/photos/aqeedah.svg',
+    tags: ['تأسيسي', 'مجاني', 'مع شهادة'],
+  },
+  {
+    id: 'fiqh-1',
+    title: 'فقه العبادات — المستوى الأول',
+    short: 'الفقه · مستوى ١',
+    cat: 'الفقه',
+    courses: 5,
+    hours: 32,
+    students: 18920,
+    price: 0,
+    label: 'مجاني',
+    color: '#AE1F24',
+    desc: 'دراسة فقه الطهارة والصلاة والزكاة والصيام والحج وفق المذاهب الأربعة مع الترجيح بالدليل.',
+    instructor: 'د. محمد بن سعد الشويعر',
+    photo: 'assets/photos/fiqh.svg',
+    tags: ['تأسيسي', 'مجاني'],
+  },
+  {
+    id: 'essentials',
+    title: 'ما لا يسع المسلم جهله',
+    short: 'الأساسيات',
+    cat: 'متنوع',
+    courses: 8,
+    hours: 18,
+    students: 45230,
+    price: 0,
+    label: 'مجاني',
+    color: '#AE1F24',
+    desc: 'باقة الأساسيات: العقيدة الميسّرة، أركان الإسلام، آداب المسلم، أحكام الطهارة والصلاة.',
+    instructor: 'نخبة من المشايخ',
+    photo: 'assets/photos/seerah.svg',
+    tags: ['للمبتدئين', 'مجاني', 'الأكثر شعبية'],
+  },
+  {
+    id: 'tafseer-1',
+    title: 'التفسير وعلوم القرآن',
+    short: 'التفسير',
+    cat: 'التفسير',
+    courses: 6,
+    hours: 40,
+    students: 8740,
+    price: 0,
+    label: 'مجاني',
+    color: '#AE1F24',
+    desc: 'منهج التفسير، أصوله، طرق المفسّرين، ودراسة جزء عمّ تفصيلاً.',
+    instructor: 'د. صالح بن عبدالله العصيمي',
+    photo: 'assets/photos/tafseer.svg',
+    tags: ['متوسط'],
+  },
+  {
+    id: 'hadith-1',
+    title: 'علوم الحديث — مدخل ومصطلح',
+    short: 'الحديث',
+    cat: 'الحديث',
+    courses: 7,
+    hours: 28,
+    students: 6320,
+    price: 0,
+    label: 'مجاني',
+    color: '#AE1F24',
+    desc: 'مدخل إلى علم الحديث، أنواعه، طرق التخريج، وأشهر كتب السنة المطهرة.',
+    instructor: 'د. عبدالكريم الخضير',
+    photo: 'assets/photos/hadith.svg',
+    tags: ['متوسط'],
+  },
+  {
+    id: 'arabic-1',
+    title: 'النحو الميسّر للناشئة',
+    short: 'العربية',
+    cat: 'متنوع',
+    courses: 4,
+    hours: 16,
+    students: 21450,
+    price: 0,
+    label: 'مجاني',
+    color: '#AE1F24',
+    desc: 'تأسيس قوي في النحو والإعراب لطلاب العلم الشرعي.',
+    instructor: 'د. سليمان العيوني',
+    photo: 'assets/photos/arabic.svg',
+    tags: ['تأسيسي', 'لغة عربية'],
+  },
+  {
+    id: 'sharia-audit',
+    title: 'المدقق المالي الشرعي المعتمد',
+    short: 'تدقيق مالي',
+    cat: 'تخصصي',
+    courses: 12,
+    hours: 120,
+    students: 642,
+    price: 4800,
+    label: 'شهادة معتمدة',
+    color: '#1A1A1A',
+    desc: 'برنامج احترافي يؤهلك لاجتياز اختبار CSAA الدولي للتدقيق الشرعي على المؤسسات المالية الإسلامية.',
+    instructor: 'د. يوسف الشبيلي · هيئة AAOIFI',
+    premium: true,
+    photo: 'assets/photos/professional.svg',
+    tags: ['شهادة دولية', 'تخصصي'],
+  },
+  {
+    id: 'islamic-econ',
+    title: 'الاقتصاد الإسلامي التطبيقي',
+    short: 'اقتصاد إسلامي',
+    cat: 'تخصصي',
+    courses: 10,
+    hours: 80,
+    students: 1240,
+    price: 1900,
+    label: 'مدفوع',
+    color: '#1A1A1A',
+    desc: 'مقاصد الشريعة في المعاملات، الصكوك، التمويل الإسلامي، ودراسات حالة معاصرة.',
+    instructor: 'د. سامي السويلم',
+    premium: true,
+    photo: 'assets/photos/professional.svg',
+    tags: ['تخصصي', 'متقدم'],
+  },
+];
+
+const COURSES_IN_AQEEDAH = [
+  { n: 1, title: 'مدخل إلى علم العقيدة', dur: '٣ ساعات', lessons: 6, status: 'done' },
+  { n: 2, title: 'توحيد الربوبية', dur: '٤ ساعات', lessons: 8, status: 'done' },
+  { n: 3, title: 'توحيد الألوهية', dur: '٥ ساعات', lessons: 10, status: 'active', progress: 0.4 },
+  { n: 4, title: 'أركان الإيمان الستة', dur: '٦ ساعات', lessons: 12, status: 'locked' },
+  { n: 5, title: 'نواقض الإسلام', dur: '٦ ساعات', lessons: 10, status: 'locked' },
+];
+
+const LESSONS = [
+  { n: 1, title: 'تعريف التوحيد لغةً واصطلاحاً', dur: '24:18', done: true },
+  { n: 2, title: 'أنواع التوحيد الثلاثة', dur: '31:42', done: true },
+  { n: 3, title: 'الأدلة على وجود الله — الفطرة', dur: '28:55', done: true },
+  { n: 4, title: 'الأدلة العقلية والحسية', dur: '36:12', current: true },
+  { n: 5, title: 'الرد على شبهات الملحدين', dur: '42:08' },
+  { n: 6, title: 'تطبيقات معاصرة', dur: '29:33' },
+];
+
+const INSTRUCTORS = [
+  {
+    id: 'alusaymi',
+    name: 'د. صالح بن عبدالله العصيمي',
+    title: 'أستاذ التفسير وعلوم القرآن',
+    students: 124800,
+    courses: 18,
+    rating: 4.9,
+    bio: 'عضو هيئة كبار العلماء، له العديد من المصنفات في علم التفسير والعقيدة، أمّ المسلمين في الحرم المكي.',
+    badge: 'موثّق',
+  },
+  {
+    id: 'shubaily',
+    name: 'د. يوسف بن عبدالله الشبيلي',
+    title: 'أستاذ الفقه والمعاملات المالية',
+    students: 28940,
+    courses: 9,
+    rating: 4.8,
+    bio: 'عضو هيئات شرعية في عدد من المصارف الإسلامية، حاصل على عضوية AAOIFI، له اهتمام بالاقتصاد الإسلامي.',
+    badge: 'تخصصي',
+  },
+  {
+    id: 'humayd',
+    name: 'د. عبدالله بن صالح الحميد',
+    title: 'أستاذ العقيدة',
+    students: 45230,
+    courses: 12,
+    rating: 4.9,
+    bio: 'له شرح ميسّر للعقيدة الواسطية، عمل في التدريس الجامعي ٢٥ عاماً.',
+  },
+  {
+    id: 'shuwair',
+    name: 'د. محمد بن سعد الشويعر',
+    title: 'أستاذ الفقه المقارن',
+    students: 31200,
+    courses: 14,
+    rating: 4.7,
+    bio: 'متخصص في الفقه المقارن وأصوله، شارك في عشرات المؤتمرات الفقهية.',
+  },
+  {
+    id: 'khudair',
+    name: 'د. عبدالكريم الخضير',
+    title: 'أستاذ علوم الحديث',
+    students: 67400,
+    courses: 22,
+    rating: 4.9,
+    bio: 'إمام في علم الحديث، له شروح على كتب السنة الستة.',
+    badge: 'موثّق',
+  },
+  {
+    id: 'aluyooni',
+    name: 'د. سليمان بن عبدالعزيز العيوني',
+    title: 'أستاذ النحو والصرف',
+    students: 18760,
+    courses: 8,
+    rating: 4.8,
+    bio: 'له دورات شعبية في تيسير النحو لطلاب العلم.',
+  },
+];
+
+const CATEGORIES = [
+  { id: 'aqeedah', name: 'العقيدة', count: 24, icon: 'shield' },
+  { id: 'fiqh', name: 'الفقه', count: 38, icon: 'book' },
+  { id: 'tafseer', name: 'التفسير وعلوم القرآن', count: 19, icon: 'quran' },
+  { id: 'hadith', name: 'الحديث', count: 22, icon: 'quote' },
+  { id: 'seerah', name: 'السيرة النبوية', count: 12, icon: 'mosque' },
+  { id: 'specialty', name: 'علوم تخصصية', count: 8, icon: 'briefcase' },
+];
+
+const NOTIFICATIONS = [
+  { id: 1, group: 'اليوم', icon: '🎓', title: 'حصلت على شارة "طالب مجتهد"!', body: 'أكملت ١٠ دورات متتالية. مبارك عليك.', time: 'منذ ٢٠ د.', unread: true, action: 'certificate' },
+  { id: 2, group: 'اليوم', icon: '📍', title: 'تذكير: حلقة الفقه الحضورية', body: 'الساعة ٧:٠٠ مساءً في مسجد الأكاديمية', time: 'منذ ساعة', unread: true, action: 'live' },
+  { id: 3, group: 'اليوم', icon: '🆕', title: 'دورة جديدة من د. الخضير', body: 'شرح الأربعين النووية — متاح الآن', time: 'منذ ٣ ساعات', unread: false, action: 'package' },
+  { id: 4, group: 'هذا الأسبوع', icon: '📚', title: 'استكمل دورة "توحيد الألوهية"', body: 'بقي ٣ دروس فقط لإنهاء الدورة', time: 'أمس', unread: false, action: 'course' },
+  { id: 5, group: 'هذا الأسبوع', icon: '✨', title: 'عرض خاص: ٢٠٪ خصم', body: 'على برنامج المدقق الشرعي حتى نهاية الشهر', time: 'منذ يومين', unread: false, action: 'package' },
+  { id: 6, group: 'هذا الأسبوع', icon: '⭐', title: 'تقييم جديد على دورتك', body: 'حصلت دورة العقيدة على تقييم ٥ نجوم جديد', time: 'منذ ٣ أيام', unread: false },
+];
+
+const MY_COURSES = [
+  { id: 'aqeedah-1', title: 'العقيدة — المستوى الأول', cat: 'العقيدة', progress: 0.62, lessons: 38, completed: 24, photo: 'assets/photos/aqeedah.svg', last: 'الدرس ٤: الأدلة العقلية' },
+  { id: 'fiqh-1', title: 'فقه العبادات', cat: 'الفقه', progress: 0.34, lessons: 42, completed: 14, photo: 'assets/photos/fiqh.svg', last: 'الدرس ٢: أحكام المياه' },
+  { id: 'tafseer-1', title: 'التفسير وعلوم القرآن', cat: 'التفسير', progress: 0.85, lessons: 36, completed: 31, photo: 'assets/photos/tafseer.svg', last: 'الدرس ٢٠: تفسير سورة الفاتحة' },
+  { id: 'hadith-1', title: 'علوم الحديث', cat: 'الحديث', progress: 0.15, lessons: 30, completed: 5, photo: 'assets/photos/hadith.svg', last: 'الدرس ١: تعريف الحديث' },
+];
+
+const CERTIFICATES = [
+  { id: 'c1', title: 'إتمام باقة الأساسيات', date: '١٥ شعبان ١٤٤٧', org: 'أكاديمية إنسان', cred: 'INS-2026-1842' },
+  { id: 'c2', title: 'مدخل إلى الفقه', date: '٢٢ رجب ١٤٤٧', org: 'أكاديمية إنسان', cred: 'INS-2026-1701' },
+  { id: 'c3', title: 'علوم القرآن — مستوى تمهيدي', date: '١٠ جمادى الثانية ١٤٤٧', org: 'أكاديمية إنسان', cred: 'INS-2026-1589' },
+];
+
+const ACHIEVEMENTS = [
+  { id: 'a1', icon: '🏆', title: 'أول دورة', desc: 'أتممت أول دورة لك', earned: true },
+  { id: 'a2', icon: '🔥', title: 'سلسلة ٧ أيام', desc: 'تعلّمت ٧ أيام متتالية', earned: true },
+  { id: 'a3', icon: '🌟', title: 'طالب مجتهد', desc: '١٠ دورات في شهر', earned: true },
+  { id: 'a4', icon: '💎', title: 'باحث', desc: '٥٠ ساعة تعلّم', earned: false, progress: 0.7 },
+  { id: 'a5', icon: '🎓', title: 'متخصص', desc: 'إتمام برنامج معتمد', earned: false, progress: 0.0 },
+  { id: 'a6', icon: '👨‍🏫', title: 'معلّم', desc: 'مشاركة ١٠ دورات', earned: false, progress: 0.3 },
+];
+
+const QUIZ_QUESTIONS = [
+  {
+    q: 'ما هو تعريف التوحيد اصطلاحاً؟',
+    options: [
+      'إفراد الله تعالى بما يختصّ به من الربوبية والألوهية والأسماء والصفات',
+      'الإيمان بأن الله موجود فقط',
+      'العبادة الصحيحة للأنبياء والصالحين',
+      'الاعتقاد بوحدانية الكون',
+    ],
+    correct: 0,
+  },
+  {
+    q: 'كم عدد أنواع التوحيد؟',
+    options: ['نوعان', 'ثلاثة أنواع', 'أربعة أنواع', 'خمسة أنواع'],
+    correct: 1,
+  },
+  {
+    q: 'ما هو أعظم أنواع التوحيد المطلوبة من العباد؟',
+    options: ['توحيد الربوبية', 'توحيد الأسماء والصفات', 'توحيد الألوهية', 'توحيد الحاكمية'],
+    correct: 2,
+  },
+];
+
+const ONBOARDING = [
+  {
+    title: 'تعلّم العلوم الشرعية',
+    body: 'دورات تأسيسية ومتقدّمة من نخبة من المشايخ على منهج أهل السنة والجماعة.',
+    photo: 'assets/photos/aqeedah.svg',
+    tag: 'مرحباً بك',
+  },
+  {
+    title: 'حضوري وأونلاين',
+    body: 'حضور الحلقات في مراكزنا، أو متابعة الدروس مسجّلة من جوّالك في أي وقت.',
+    photo: 'assets/photos/seerah.svg',
+    tag: 'مرونة كاملة',
+  },
+  {
+    title: 'شهادات معتمدة',
+    body: 'برامج احترافية في التدقيق الشرعي والاقتصاد الإسلامي بشهادات دولية.',
+    photo: 'assets/photos/professional.svg',
+    tag: 'تخصص متقدّم',
+  },
+];
+
+const LIVE_SESSION = {
+  title: 'شرح متن العقيدة الواسطية — الحلقة ١٢',
+  instructor: 'د. عبدالله الحميد',
+  date: 'الثلاثاء ١٢ شوال ١٤٤٧',
+  time: '٧:٠٠ — ٨:٣٠ مساءً',
+  location: 'مركز إنسان · حي الياسمين',
+  attendees: 84,
+  capacity: 120,
+  isOnline: false,
+};
+
+window.APP_DATA = {
+  PACKAGES, COURSES_IN_AQEEDAH, LESSONS, INSTRUCTORS, CATEGORIES,
+  NOTIFICATIONS, MY_COURSES, CERTIFICATES, ACHIEVEMENTS,
+  QUIZ_QUESTIONS, ONBOARDING, LIVE_SESSION,
+};
