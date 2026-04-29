@@ -188,10 +188,16 @@ const WMO_MAP = {
   99: { ar:'رعدية شديدة',   icon:'⛈️' },
 };
 
+const WEATHER_OVERRIDE_KEY = 'insan-weather-override';
+
 function WeatherCard({ dark }) {
   // status: 'idle' | 'prompting' | 'loading' | 'ready' | 'denied' | 'unavailable' | 'error'
   const [status, setStatus] = React.useState('idle');
   const [data, setData]     = React.useState(null);
+  const [picking, setPicking]   = React.useState(false);
+  const [query, setQuery]       = React.useState('');
+  const [results, setResults]   = React.useState([]);
+  const [searching, setSearching] = React.useState(false);
 
   const reverseGeocode = (lat, lon) => {
     const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=ar`;
@@ -205,31 +211,57 @@ function WeatherCard({ dark }) {
   };
 
   const fetchWeather = (lat, lon) => {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
+      + `&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m`
+      + `&hourly=temperature_2m,weather_code&forecast_hours=12&timezone=auto`;
     return fetch(url)
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
-      .then(j => j.current || {});
+      .then(j => j);
   };
+
+  const loadFor = React.useCallback(async (lat, lon, label) => {
+    setStatus('loading');
+    try {
+      const [j, place] = await Promise.all([
+        fetchWeather(lat, lon),
+        label ? Promise.resolve(label) : reverseGeocode(lat, lon),
+      ]);
+      const c = j.current || {};
+      const h = j.hourly || {};
+      const hours = (h.time || []).map((t, i) => ({
+        time: t,
+        temp: Math.round(h.temperature_2m?.[i]),
+        code: h.weather_code?.[i],
+      }));
+      setData({
+        temp: Math.round(c.temperature_2m),
+        code: c.weather_code,
+        wind: Math.round(c.wind_speed_10m),
+        humidity: Math.round(c.relative_humidity_2m),
+        place: place || 'موقعك',
+        hours,
+      });
+      setStatus('ready');
+    } catch (_) { setStatus('error'); }
+  }, []);
 
   const requestLocation = React.useCallback(() => {
     if (!navigator.geolocation) { setStatus('unavailable'); return; }
     setStatus('prompting');
     navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        setStatus('loading');
-        const { latitude: lat, longitude: lon } = pos.coords;
-        try {
-          const [w, place] = await Promise.all([fetchWeather(lat, lon), reverseGeocode(lat, lon)]);
-          setData({ temp: Math.round(w.temperature_2m), code: w.weather_code, place: place || 'موقعك' });
-          setStatus('ready');
-        } catch (_) { setStatus('error'); }
-      },
-      (e) => setStatus(e && e.code === 1 ? 'denied' : 'error'),
+      (pos) => loadFor(pos.coords.latitude, pos.coords.longitude),
+      (e)   => setStatus(e && e.code === 1 ? 'denied' : 'error'),
       { timeout: 8000, maximumAge: 600000, enableHighAccuracy: false }
     );
-  }, []);
+  }, [loadFor]);
 
   React.useEffect(() => {
+    let override = null;
+    try { override = JSON.parse(localStorage.getItem(WEATHER_OVERRIDE_KEY) || 'null'); } catch (_) {}
+    if (override && typeof override.lat === 'number') {
+      loadFor(override.lat, override.lon, override.label);
+      return;
+    }
     if (!navigator.permissions || !navigator.permissions.query) {
       requestLocation();
       return;
@@ -240,7 +272,42 @@ function WeatherCard({ dark }) {
         else setStatus('denied');
       })
       .catch(() => requestLocation());
-  }, [requestLocation]);
+  }, [requestLocation, loadFor]);
+
+  // Debounced search via Open-Meteo geocoding
+  React.useEffect(() => {
+    if (!picking) return;
+    const q = query.trim();
+    if (q.length < 2) { setResults([]); return; }
+    setSearching(true);
+    const ctrl = new AbortController();
+    const id = setTimeout(() => {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=8&language=ar&format=json`;
+      fetch(url, { signal: ctrl.signal })
+        .then(r => r.ok ? r.json() : { results: [] })
+        .then(j => setResults(j.results || []))
+        .catch(() => {})
+        .finally(() => setSearching(false));
+    }, 300);
+    return () => { clearTimeout(id); ctrl.abort(); };
+  }, [query, picking]);
+
+  const pickLocation = (r) => {
+    const label = [r.name, r.country].filter(Boolean).join('، ');
+    try { localStorage.setItem(WEATHER_OVERRIDE_KEY, JSON.stringify({ lat: r.latitude, lon: r.longitude, label })); } catch (_) {}
+    setPicking(false);
+    setQuery('');
+    setResults([]);
+    loadFor(r.latitude, r.longitude, label);
+  };
+
+  const useMyLocation = () => {
+    try { localStorage.removeItem(WEATHER_OVERRIDE_KEY); } catch (_) {}
+    setPicking(false);
+    setQuery('');
+    setResults([]);
+    requestLocation();
+  };
 
   const cardBg = dark ? '#161618' : '#fff';
   const fg     = dark ? '#fff'    : '#0A0A0C';
@@ -253,6 +320,77 @@ function WeatherCard({ dark }) {
     background: cardBg, border:`1px solid ${border}`,
     width:'100%', boxSizing:'border-box',
   };
+  const dashWrap = {
+    display:'flex', flexDirection:'column', gap:8,
+    padding:'12px 14px', borderRadius:18,
+    background: cardBg, border:`1px solid ${border}`,
+    width:'100%', boxSizing:'border-box',
+  };
+
+  const SearchSheet = () => (
+    <>
+      <div onClick={() => setPicking(false)} style={{
+        position:'fixed', inset:0, background:'rgba(0,0,0,0.5)', backdropFilter:'blur(4px)',
+        WebkitBackdropFilter:'blur(4px)', zIndex:9998,
+      }}/>
+      <div style={{
+        position:'fixed', left:0, right:0, bottom:0, zIndex:9999,
+        background: cardBg, borderTopLeftRadius:20, borderTopRightRadius:20,
+        padding:'14px 16px 24px', maxHeight:'72vh', display:'flex', flexDirection:'column',
+        boxShadow:'0 -10px 40px rgba(0,0,0,0.25)',
+      }}>
+        <div style={{width:40, height:4, background:fg2, borderRadius:99, margin:'0 auto 12px', opacity:0.4}}/>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10}}>
+          <div style={{fontSize:15, fontWeight:800, color:fg}}>اختر الدولة أو المدينة</div>
+          <button onClick={() => setPicking(false)} style={{all:'unset', cursor:'pointer', fontSize:13, fontWeight:700, color:fg2}}>إغلاق</button>
+        </div>
+        <input
+          autoFocus
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="ابحث: الكويت، الرياض، Cairo…"
+          style={{
+            width:'100%', boxSizing:'border-box',
+            padding:'12px 14px', borderRadius:12,
+            background: dark ? '#0A0A0C' : '#F2F2F4',
+            border:`1px solid ${border}`, color:fg,
+            fontSize:14, fontWeight:500,
+            fontFamily:'var(--font-arabic)', outline:'none',
+          }}
+        />
+        <button onClick={useMyLocation} style={{
+          all:'unset', cursor:'pointer', marginTop:10,
+          display:'flex', alignItems:'center', gap:8,
+          padding:'10px 12px', borderRadius:12,
+          background: dark ? 'rgba(11,95,176,0.15)' : 'rgba(11,95,176,0.08)',
+          color:'#0B5FB0', fontWeight:700, fontSize:13,
+        }}>
+          <span>📍</span> استخدم موقعي الحالي
+        </button>
+        <div style={{flex:1, overflowY:'auto', marginTop:10, display:'flex', flexDirection:'column', gap:6}}>
+          {searching && <div style={{padding:'10px 12px', fontSize:12, color:fg2}}>جارٍ البحث…</div>}
+          {!searching && query.trim().length >= 2 && results.length === 0 && (
+            <div style={{padding:'10px 12px', fontSize:12, color:fg2}}>لا توجد نتائج</div>
+          )}
+          {results.map((r) => (
+            <button
+              key={`${r.id}-${r.latitude}-${r.longitude}`}
+              onClick={() => pickLocation(r)}
+              style={{
+                all:'unset', cursor:'pointer',
+                padding:'10px 12px', borderRadius:10,
+                border:`1px solid ${border}`,
+                display:'flex', flexDirection:'column', gap:2,
+              }}
+            >
+              <div style={{fontSize:13, fontWeight:700, color:fg}}>{r.name}{r.admin1 ? ` — ${r.admin1}` : ''}</div>
+              <div style={{fontSize:11, color:fg2}}>{r.country || ''}{r.country_code ? ` · ${r.country_code}` : ''}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 
   if (status === 'denied' || status === 'unavailable' || status === 'error') {
     const msg = status === 'unavailable'
@@ -261,39 +399,99 @@ function WeatherCard({ dark }) {
         ? 'فعّل خدمة الموقع لعرض الطقس'
         : 'تعذّر تحديد الموقع — حاول مجدداً';
     return (
-      <button
-        onClick={requestLocation}
-        style={{
-          all:'unset', cursor:'pointer', ...baseWrap,
-        }}
-      >
-        <div style={{fontSize:20, lineHeight:1}}>📍</div>
-        <div style={{flex:1, minWidth:0, lineHeight:1.2}}>
-          <div style={{fontSize:12, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>{msg}</div>
-          <div style={{fontSize:10, color:fg2, fontWeight:500, marginTop:1}}>اضغط للسماح بالوصول إلى الموقع</div>
+      <>
+        <div style={{...baseWrap, gap:8}}>
+          <button onClick={requestLocation} style={{all:'unset', cursor:'pointer', flex:1, display:'flex', alignItems:'center', gap:10, minWidth:0}}>
+            <div style={{fontSize:20, lineHeight:1}}>📍</div>
+            <div style={{flex:1, minWidth:0, lineHeight:1.2}}>
+              <div style={{fontSize:12, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>{msg}</div>
+              <div style={{fontSize:10, color:fg2, fontWeight:500, marginTop:1}}>اضغط للسماح بالوصول إلى الموقع</div>
+            </div>
+            <span style={{fontSize:11, fontWeight:700, color:'#0B5FB0'}}>تفعيل ›</span>
+          </button>
+          <button onClick={() => setPicking(true)} style={{
+            all:'unset', cursor:'pointer',
+            padding:'6px 10px', borderRadius:99,
+            background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,12,0.05)',
+            fontSize:11, fontWeight:700, color:fg,
+          }}>تغيير</button>
         </div>
-        <span style={{fontSize:11, fontWeight:700, color:'#0B5FB0'}}>تفعيل ›</span>
-      </button>
+        {picking && <SearchSheet/>}
+      </>
     );
   }
 
   const w = data ? (WMO_MAP[data.code] || { ar:'—', icon:'🌡️' }) : null;
+  const fmtHour = (iso) => {
+    try { return new Date(iso).getHours() + ':00'; } catch (_) { return ''; }
+  };
 
   return (
-    <div style={baseWrap}>
-      <div style={{fontSize:20, lineHeight:1}}>{w ? w.icon : '⏳'}</div>
-      <div style={{flex:1, minWidth:0, display:'flex', flexDirection:'column', lineHeight:1.15}}>
-        <div style={{fontSize:13, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>
-          {data ? `${data.temp}°` : '—'}
-          <span style={{fontSize:11, fontWeight:500, color:fg2, marginRight:6}}>
-            {w ? w.ar : 'جارٍ تحديث الطقس…'}
-          </span>
+    <>
+      <div style={dashWrap}>
+        {/* Top row: icon + temp + condition + location + change */}
+        <div style={{display:'flex', alignItems:'center', gap:10}}>
+          <div style={{fontSize:30, lineHeight:1}}>{w ? w.icon : '⏳'}</div>
+          <div style={{flex:1, minWidth:0, display:'flex', flexDirection:'column', lineHeight:1.15}}>
+            <div style={{display:'flex', alignItems:'baseline', gap:6}}>
+              <div style={{fontSize:22, fontWeight:800, color:fg, letterSpacing:'-0.02em', fontFamily:'var(--font-latin)'}}>
+                {data ? `${data.temp}°` : '—'}
+              </div>
+              <div style={{fontSize:12, fontWeight:600, color:fg2}}>{w ? w.ar : 'جارٍ التحديث…'}</div>
+            </div>
+            <div style={{fontSize:11, color:fg2, fontWeight:500, marginTop:2, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
+              📍 {data ? data.place : 'يحدّد الموقع…'}
+            </div>
+          </div>
+          <button onClick={() => setPicking(true)} style={{
+            all:'unset', cursor:'pointer',
+            padding:'6px 10px', borderRadius:99,
+            background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,12,0.05)',
+            fontSize:11, fontWeight:700, color:fg, flexShrink:0,
+          }}>تغيير</button>
         </div>
-        <div style={{fontSize:10, color:fg2, fontWeight:500, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
-          📍 {data ? data.place : 'يحدّد الموقع…'}
-        </div>
+
+        {/* Stats row: wind + humidity */}
+        {data && (
+          <div style={{display:'flex', gap:10, fontSize:11, color:fg2, fontWeight:600}}>
+            <div style={{display:'flex', alignItems:'center', gap:4}}>
+              <span>💨</span>
+              <span><span style={{fontFamily:'var(--font-latin)', color:fg, fontWeight:700}}>{data.wind ?? '—'}</span> كم/س</span>
+            </div>
+            <div style={{display:'flex', alignItems:'center', gap:4}}>
+              <span>💧</span>
+              <span><span style={{fontFamily:'var(--font-latin)', color:fg, fontWeight:700}}>{data.humidity ?? '—'}%</span> رطوبة</span>
+            </div>
+          </div>
+        )}
+
+        {/* Hourly timeline */}
+        {data && data.hours && data.hours.length > 0 && (
+          <div style={{
+            display:'flex', gap:6, overflowX:'auto', paddingTop:4,
+            marginTop:2, borderTop:`1px solid ${border}`, paddingBottom:2,
+          }}>
+            {data.hours.slice(0, 12).map((h, i) => {
+              const hw = WMO_MAP[h.code] || { icon:'🌡️' };
+              return (
+                <div key={i} style={{
+                  flex:'0 0 auto', display:'flex', flexDirection:'column',
+                  alignItems:'center', gap:3, padding:'6px 8px', minWidth:42,
+                  borderRadius:10, background: dark ? 'rgba(255,255,255,0.04)' : 'rgba(10,10,12,0.03)',
+                }}>
+                  <div style={{fontSize:9, color:fg2, fontWeight:600, fontFamily:'var(--font-latin)'}}>
+                    {i === 0 ? 'الآن' : fmtHour(h.time)}
+                  </div>
+                  <div style={{fontSize:16, lineHeight:1}}>{hw.icon}</div>
+                  <div style={{fontSize:11, color:fg, fontWeight:700, fontFamily:'var(--font-latin)'}}>{h.temp}°</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
-    </div>
+      {picking && <SearchSheet/>}
+    </>
   );
 }
 window.WeatherCard = WeatherCard;
