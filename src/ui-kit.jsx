@@ -160,6 +160,144 @@ function StreakCard({ days = 7, dark, onClick }) {
 }
 window.StreakCard = StreakCard;
 
+// ─────────────── Weather card (compact, location-aware via Open-Meteo)
+const WMO_MAP = {
+  0:  { ar:'صحو',          icon:'☀️' },
+  1:  { ar:'صحو غالباً',    icon:'🌤️' },
+  2:  { ar:'غائم جزئياً',   icon:'⛅' },
+  3:  { ar:'غائم',          icon:'☁️' },
+  45: { ar:'ضباب',          icon:'🌫️' },
+  48: { ar:'ضباب متجمّد',   icon:'🌫️' },
+  51: { ar:'رذاذ خفيف',     icon:'🌦️' },
+  53: { ar:'رذاذ',          icon:'🌦️' },
+  55: { ar:'رذاذ كثيف',     icon:'🌧️' },
+  61: { ar:'مطر خفيف',      icon:'🌦️' },
+  63: { ar:'مطر',           icon:'🌧️' },
+  65: { ar:'مطر غزير',      icon:'🌧️' },
+  71: { ar:'ثلوج خفيفة',    icon:'🌨️' },
+  73: { ar:'ثلوج',          icon:'❄️' },
+  75: { ar:'ثلوج كثيفة',    icon:'❄️' },
+  77: { ar:'حُبيبات ثلجية',  icon:'❄️' },
+  80: { ar:'زخّات مطر',     icon:'🌦️' },
+  81: { ar:'زخّات قوية',    icon:'🌧️' },
+  82: { ar:'زخّات عنيفة',   icon:'⛈️' },
+  85: { ar:'زخّات ثلج',     icon:'🌨️' },
+  86: { ar:'زخّات ثلج قوية', icon:'❄️' },
+  95: { ar:'رعدية',         icon:'⛈️' },
+  96: { ar:'رعدية وبَرَد',   icon:'⛈️' },
+  99: { ar:'رعدية شديدة',   icon:'⛈️' },
+};
+
+function WeatherCard({ dark }) {
+  // status: 'idle' | 'prompting' | 'loading' | 'ready' | 'denied' | 'unavailable' | 'error'
+  const [status, setStatus] = React.useState('idle');
+  const [data, setData]     = React.useState(null);
+
+  const reverseGeocode = (lat, lon) => {
+    const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=ar`;
+    return fetch(url)
+      .then(r => r.ok ? r.json() : null)
+      .then(j => {
+        if (!j) return null;
+        return j.city || j.locality || j.principalSubdivision || j.countryName || null;
+      })
+      .catch(() => null);
+  };
+
+  const fetchWeather = (lat, lon) => {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
+    return fetch(url)
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(j => j.current || {});
+  };
+
+  const requestLocation = React.useCallback(() => {
+    if (!navigator.geolocation) { setStatus('unavailable'); return; }
+    setStatus('prompting');
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        setStatus('loading');
+        const { latitude: lat, longitude: lon } = pos.coords;
+        try {
+          const [w, place] = await Promise.all([fetchWeather(lat, lon), reverseGeocode(lat, lon)]);
+          setData({ temp: Math.round(w.temperature_2m), code: w.weather_code, place: place || 'موقعك' });
+          setStatus('ready');
+        } catch (_) { setStatus('error'); }
+      },
+      (e) => setStatus(e && e.code === 1 ? 'denied' : 'error'),
+      { timeout: 8000, maximumAge: 600000, enableHighAccuracy: false }
+    );
+  }, []);
+
+  React.useEffect(() => {
+    if (!navigator.permissions || !navigator.permissions.query) {
+      requestLocation();
+      return;
+    }
+    navigator.permissions.query({ name: 'geolocation' })
+      .then(p => {
+        if (p.state === 'granted' || p.state === 'prompt') requestLocation();
+        else setStatus('denied');
+      })
+      .catch(() => requestLocation());
+  }, [requestLocation]);
+
+  const cardBg = dark ? '#161618' : '#fff';
+  const fg     = dark ? '#fff'    : '#0A0A0C';
+  const fg2    = dark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,12,0.55)';
+  const border = dark ? 'rgba(255,255,255,0.07)' : 'rgba(10,10,12,0.06)';
+
+  const baseWrap = {
+    display:'flex', alignItems:'center', gap:10,
+    padding:'8px 12px', borderRadius:99,
+    background: cardBg, border:`1px solid ${border}`,
+    width:'100%', boxSizing:'border-box',
+  };
+
+  if (status === 'denied' || status === 'unavailable' || status === 'error') {
+    const msg = status === 'unavailable'
+      ? 'خدمة الموقع غير متاحة في هذا الجهاز'
+      : status === 'denied'
+        ? 'فعّل خدمة الموقع لعرض الطقس'
+        : 'تعذّر تحديد الموقع — حاول مجدداً';
+    return (
+      <button
+        onClick={requestLocation}
+        style={{
+          all:'unset', cursor:'pointer', ...baseWrap,
+        }}
+      >
+        <div style={{fontSize:20, lineHeight:1}}>📍</div>
+        <div style={{flex:1, minWidth:0, lineHeight:1.2}}>
+          <div style={{fontSize:12, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>{msg}</div>
+          <div style={{fontSize:10, color:fg2, fontWeight:500, marginTop:1}}>اضغط للسماح بالوصول إلى الموقع</div>
+        </div>
+        <span style={{fontSize:11, fontWeight:700, color:'#0B5FB0'}}>تفعيل ›</span>
+      </button>
+    );
+  }
+
+  const w = data ? (WMO_MAP[data.code] || { ar:'—', icon:'🌡️' }) : null;
+
+  return (
+    <div style={baseWrap}>
+      <div style={{fontSize:20, lineHeight:1}}>{w ? w.icon : '⏳'}</div>
+      <div style={{flex:1, minWidth:0, display:'flex', flexDirection:'column', lineHeight:1.15}}>
+        <div style={{fontSize:13, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>
+          {data ? `${data.temp}°` : '—'}
+          <span style={{fontSize:11, fontWeight:500, color:fg2, marginRight:6}}>
+            {w ? w.ar : 'جارٍ تحديث الطقس…'}
+          </span>
+        </div>
+        <div style={{fontSize:10, color:fg2, fontWeight:500, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
+          📍 {data ? data.place : 'يحدّد الموقع…'}
+        </div>
+      </div>
+    </div>
+  );
+}
+window.WeatherCard = WeatherCard;
+
 // ─────────────── Mini-player (floating, persistent)
 function MiniPlayer({ dark, lesson, playing, onPlay, onClose, onOpen }) {
   if (!lesson) return null;
