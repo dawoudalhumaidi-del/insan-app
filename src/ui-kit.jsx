@@ -162,31 +162,37 @@ window.StreakCard = StreakCard;
 
 // ─────────────── Weather card (compact, location-aware via Open-Meteo)
 const WMO_MAP = {
-  0:  { ar:'صحو',          icon:'☀️' },
-  1:  { ar:'صحو غالباً',    icon:'🌤️' },
-  2:  { ar:'غائم جزئياً',   icon:'⛅' },
-  3:  { ar:'غائم',          icon:'☁️' },
-  45: { ar:'ضباب',          icon:'🌫️' },
-  48: { ar:'ضباب متجمّد',   icon:'🌫️' },
-  51: { ar:'رذاذ خفيف',     icon:'🌦️' },
-  53: { ar:'رذاذ',          icon:'🌦️' },
-  55: { ar:'رذاذ كثيف',     icon:'🌧️' },
-  61: { ar:'مطر خفيف',      icon:'🌦️' },
-  63: { ar:'مطر',           icon:'🌧️' },
-  65: { ar:'مطر غزير',      icon:'🌧️' },
-  71: { ar:'ثلوج خفيفة',    icon:'🌨️' },
-  73: { ar:'ثلوج',          icon:'❄️' },
-  75: { ar:'ثلوج كثيفة',    icon:'❄️' },
-  77: { ar:'حُبيبات ثلجية',  icon:'❄️' },
-  80: { ar:'زخّات مطر',     icon:'🌦️' },
-  81: { ar:'زخّات قوية',    icon:'🌧️' },
-  82: { ar:'زخّات عنيفة',   icon:'⛈️' },
-  85: { ar:'زخّات ثلج',     icon:'🌨️' },
-  86: { ar:'زخّات ثلج قوية', icon:'❄️' },
-  95: { ar:'رعدية',         icon:'⛈️' },
-  96: { ar:'رعدية وبَرَد',   icon:'⛈️' },
-  99: { ar:'رعدية شديدة',   icon:'⛈️' },
+  0:  { ar:'صحو',          day:'☀️',  night:'🌙' },
+  1:  { ar:'صحو غالباً',    day:'🌤️', night:'🌙' },
+  2:  { ar:'غائم جزئياً',   day:'⛅',  night:'☁️' },
+  3:  { ar:'غائم',          day:'☁️',  night:'☁️' },
+  45: { ar:'ضباب',          day:'🌫️', night:'🌫️' },
+  48: { ar:'ضباب متجمّد',   day:'🌫️', night:'🌫️' },
+  51: { ar:'رذاذ خفيف',     day:'🌦️', night:'🌧️' },
+  53: { ar:'رذاذ',          day:'🌦️', night:'🌧️' },
+  55: { ar:'رذاذ كثيف',     day:'🌧️', night:'🌧️' },
+  61: { ar:'مطر خفيف',      day:'🌦️', night:'🌧️' },
+  63: { ar:'مطر',           day:'🌧️', night:'🌧️' },
+  65: { ar:'مطر غزير',      day:'🌧️', night:'🌧️' },
+  71: { ar:'ثلوج خفيفة',    day:'🌨️', night:'🌨️' },
+  73: { ar:'ثلوج',          day:'❄️',  night:'❄️' },
+  75: { ar:'ثلوج كثيفة',    day:'❄️',  night:'❄️' },
+  77: { ar:'حُبيبات ثلجية',  day:'❄️',  night:'❄️' },
+  80: { ar:'زخّات مطر',     day:'🌦️', night:'🌧️' },
+  81: { ar:'زخّات قوية',    day:'🌧️', night:'🌧️' },
+  82: { ar:'زخّات عنيفة',   day:'⛈️',  night:'⛈️' },
+  85: { ar:'زخّات ثلج',     day:'🌨️', night:'🌨️' },
+  86: { ar:'زخّات ثلج قوية', day:'❄️',  night:'❄️' },
+  95: { ar:'رعدية',         day:'⛈️',  night:'⛈️' },
+  96: { ar:'رعدية وبَرَد',   day:'⛈️',  night:'⛈️' },
+  99: { ar:'رعدية شديدة',   day:'⛈️',  night:'⛈️' },
 };
+const wmoIcon = (code, isDay) => {
+  const e = WMO_MAP[code];
+  if (!e) return '🌡️';
+  return isDay === 0 ? e.night : e.day;
+};
+const wmoLabel = (code) => (WMO_MAP[code] || { ar:'—' }).ar;
 
 const WEATHER_OVERRIDE_KEY = 'insan-weather-override';
 
@@ -212,8 +218,8 @@ function WeatherCard({ dark }) {
 
   const fetchWeather = (lat, lon) => {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
-      + `&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m`
-      + `&hourly=temperature_2m,weather_code&forecast_hours=12&timezone=auto`;
+      + `&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m,is_day`
+      + `&hourly=temperature_2m,weather_code,is_day&forecast_hours=12&timezone=auto`;
     return fetch(url)
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(j => j);
@@ -232,10 +238,12 @@ function WeatherCard({ dark }) {
         time: t,
         temp: Math.round(h.temperature_2m?.[i]),
         code: h.weather_code?.[i],
+        isDay: h.is_day?.[i],
       }));
       setData({
         temp: Math.round(c.temperature_2m),
         code: c.weather_code,
+        isDay: c.is_day,
         wind: Math.round(c.wind_speed_10m),
         humidity: Math.round(c.relative_humidity_2m),
         place: place || 'موقعك',
@@ -421,26 +429,35 @@ function WeatherCard({ dark }) {
     );
   }
 
-  const w = data ? (WMO_MAP[data.code] || { ar:'—', icon:'🌡️' }) : null;
   const fmtHour = (iso) => {
     try { return new Date(iso).getHours() + ':00'; } catch (_) { return ''; }
   };
+
+  const isLoading = status === 'idle' || status === 'prompting' || status === 'loading' || !data;
+  const mainIcon = data ? wmoIcon(data.code, data.isDay) : '⏳';
+  const mainLabel = data ? wmoLabel(data.code) : 'جارٍ تحميل بيانات الطقس…';
 
   return (
     <>
       <div style={dashWrap}>
         {/* Top row: icon + temp + condition + location + change */}
         <div style={{display:'flex', alignItems:'center', gap:10}}>
-          <div style={{fontSize:30, lineHeight:1}}>{w ? w.icon : '⏳'}</div>
+          <div style={{fontSize:30, lineHeight:1}}>{mainIcon}</div>
           <div style={{flex:1, minWidth:0, display:'flex', flexDirection:'column', lineHeight:1.15}}>
             <div style={{display:'flex', alignItems:'baseline', gap:6}}>
-              <div style={{fontSize:22, fontWeight:800, color:fg, letterSpacing:'-0.02em', fontFamily:'var(--font-latin)'}}>
-                {data ? `${data.temp}°` : '—'}
-              </div>
-              <div style={{fontSize:12, fontWeight:600, color:fg2}}>{w ? w.ar : 'جارٍ التحديث…'}</div>
+              {isLoading ? (
+                <window.Skeleton w={56} h={22} r={6} dark={dark}/>
+              ) : (
+                <>
+                  <div style={{fontSize:22, fontWeight:800, color:fg, letterSpacing:'-0.02em', fontFamily:'var(--font-latin)'}}>
+                    {data.temp}°
+                  </div>
+                  <div style={{fontSize:12, fontWeight:600, color:fg2}}>{mainLabel}</div>
+                </>
+              )}
             </div>
-            <div style={{fontSize:11, color:fg2, fontWeight:500, marginTop:2, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
-              📍 {data ? data.place : 'يحدّد الموقع…'}
+            <div style={{fontSize:11, color:fg2, fontWeight:500, marginTop:4, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
+              {isLoading ? <window.Skeleton w={120} h={11} r={4} dark={dark}/> : <>📍 {data.place}</>}
             </div>
           </div>
           <button onClick={() => setPicking(true)} style={{
@@ -452,7 +469,12 @@ function WeatherCard({ dark }) {
         </div>
 
         {/* Stats row: wind + humidity */}
-        {data && (
+        {isLoading ? (
+          <div style={{display:'flex', gap:10}}>
+            <window.Skeleton w={70} h={11} r={4} dark={dark}/>
+            <window.Skeleton w={80} h={11} r={4} dark={dark}/>
+          </div>
+        ) : (
           <div style={{display:'flex', gap:10, fontSize:11, color:fg2, fontWeight:600}}>
             <div style={{display:'flex', alignItems:'center', gap:4}}>
               <span>💨</span>
@@ -466,14 +488,19 @@ function WeatherCard({ dark }) {
         )}
 
         {/* Hourly timeline */}
-        {data && data.hours && data.hours.length > 0 && (
-          <div style={{
-            display:'flex', gap:6, overflowX:'auto', paddingTop:4,
-            marginTop:2, borderTop:`1px solid ${border}`, paddingBottom:2,
-          }}>
-            {data.hours.slice(0, 12).map((h, i) => {
-              const hw = WMO_MAP[h.code] || { icon:'🌡️' };
-              return (
+        <div style={{
+          display:'flex', gap:6, overflowX:'auto', paddingTop:6,
+          marginTop:2, borderTop:`1px solid ${border}`, paddingBottom:2,
+        }}>
+          {isLoading
+            ? Array.from({length:6}).map((_, i) => (
+                <div key={i} style={{flex:'0 0 auto', display:'flex', flexDirection:'column', alignItems:'center', gap:4, padding:'6px 8px', minWidth:42}}>
+                  <window.Skeleton w={24} h={9} r={3} dark={dark}/>
+                  <window.Skeleton w={20} h={20} r={4} dark={dark}/>
+                  <window.Skeleton w={22} h={11} r={3} dark={dark}/>
+                </div>
+              ))
+            : data.hours.slice(0, 12).map((h, i) => (
                 <div key={i} style={{
                   flex:'0 0 auto', display:'flex', flexDirection:'column',
                   alignItems:'center', gap:3, padding:'6px 8px', minWidth:42,
@@ -482,13 +509,12 @@ function WeatherCard({ dark }) {
                   <div style={{fontSize:9, color:fg2, fontWeight:600, fontFamily:'var(--font-latin)'}}>
                     {i === 0 ? 'الآن' : fmtHour(h.time)}
                   </div>
-                  <div style={{fontSize:16, lineHeight:1}}>{hw.icon}</div>
+                  <div style={{fontSize:16, lineHeight:1}}>{wmoIcon(h.code, h.isDay)}</div>
                   <div style={{fontSize:11, color:fg, fontWeight:700, fontFamily:'var(--font-latin)'}}>{h.temp}°</div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              ))
+          }
+        </div>
       </div>
       {picking && <SearchSheet/>}
     </>
