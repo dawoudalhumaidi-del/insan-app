@@ -106,6 +106,13 @@ v2.Home = function({ dark, params }) {
         </div>
         {window.LangSheet && <window.LangSheet open={langOpen} onClose={() => setLangOpen(false)}/>}
 
+        {/* Compact weather */}
+        {window.WeatherCard && (
+          <div style={{padding:'2px 20px 10px'}}>
+            <window.WeatherCard dark={dark}/>
+          </div>
+        )}
+
         {/* Flagship quick-access ribbon */}
         <div style={{padding:'2px 16px 14px', display:'flex', gap:8, overflowX:'auto'}}>
           {[

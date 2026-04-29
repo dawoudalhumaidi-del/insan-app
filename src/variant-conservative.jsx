@@ -38,6 +38,13 @@ v1.Home = function({ dark }) {
           <p style={{margin:'8px 0 0', fontSize:13, color:fg2}}>أكمل ما بدأت — درس واحد يقرّبك من الإتمام.</p>
         </div>
 
+        {/* Compact weather */}
+        {window.WeatherCard && (
+          <div style={{padding:'0 20px 14px'}}>
+            <window.WeatherCard dark={dark}/>
+          </div>
+        )}
+
         {/* Search */}
         <div style={{padding:'0 20px 20px'}}>
           <div style={{display:'flex', alignItems:'center', gap:10, padding:'12px 14px', background: cardBg, border:`1px solid ${border}`, borderRadius:10}}>

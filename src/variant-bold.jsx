@@ -43,6 +43,13 @@ v3.Home = function({ dark }) {
           ))}
         </div>
 
+        {/* Compact weather */}
+        {window.WeatherCard && (
+          <div style={{padding:'18px 20px 0'}}>
+            <window.WeatherCard dark={dark}/>
+          </div>
+        )}
+
         {/* Section header — editorial */}
         <div style={{padding:'32px 24px 14px'}}>
           <div style={{fontSize:11, color:'#0B5FB0', fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', fontFamily:'var(--font-latin)'}}>01 — Aqeedah · Fiqh</div>
