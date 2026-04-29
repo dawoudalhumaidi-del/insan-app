@@ -211,20 +211,36 @@ function WeatherCard({ dark }) {
   };
 
   const fetchWeather = (lat, lon) => {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
+      + `&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m`
+      + `&hourly=temperature_2m,weather_code&forecast_hours=12&timezone=auto`;
     return fetch(url)
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
-      .then(j => j.current || {});
+      .then(j => j);
   };
 
   const loadFor = React.useCallback(async (lat, lon, label) => {
     setStatus('loading');
     try {
-      const [w, place] = await Promise.all([
+      const [j, place] = await Promise.all([
         fetchWeather(lat, lon),
         label ? Promise.resolve(label) : reverseGeocode(lat, lon),
       ]);
-      setData({ temp: Math.round(w.temperature_2m), code: w.weather_code, place: place || 'موقعك' });
+      const c = j.current || {};
+      const h = j.hourly || {};
+      const hours = (h.time || []).map((t, i) => ({
+        time: t,
+        temp: Math.round(h.temperature_2m?.[i]),
+        code: h.weather_code?.[i],
+      }));
+      setData({
+        temp: Math.round(c.temperature_2m),
+        code: c.weather_code,
+        wind: Math.round(c.wind_speed_10m),
+        humidity: Math.round(c.relative_humidity_2m),
+        place: place || 'موقعك',
+        hours,
+      });
       setStatus('ready');
     } catch (_) { setStatus('error'); }
   }, []);
@@ -301,6 +317,12 @@ function WeatherCard({ dark }) {
   const baseWrap = {
     display:'flex', alignItems:'center', gap:10,
     padding:'8px 12px', borderRadius:99,
+    background: cardBg, border:`1px solid ${border}`,
+    width:'100%', boxSizing:'border-box',
+  };
+  const dashWrap = {
+    display:'flex', flexDirection:'column', gap:8,
+    padding:'12px 14px', borderRadius:18,
     background: cardBg, border:`1px solid ${border}`,
     width:'100%', boxSizing:'border-box',
   };
@@ -400,28 +422,73 @@ function WeatherCard({ dark }) {
   }
 
   const w = data ? (WMO_MAP[data.code] || { ar:'—', icon:'🌡️' }) : null;
+  const fmtHour = (iso) => {
+    try { return new Date(iso).getHours() + ':00'; } catch (_) { return ''; }
+  };
 
   return (
     <>
-      <div style={{...baseWrap, gap:8}}>
-        <div style={{fontSize:20, lineHeight:1}}>{w ? w.icon : '⏳'}</div>
-        <div style={{flex:1, minWidth:0, display:'flex', flexDirection:'column', lineHeight:1.15}}>
-          <div style={{fontSize:13, fontWeight:700, color:fg, letterSpacing:'-0.005em'}}>
-            {data ? `${data.temp}°` : '—'}
-            <span style={{fontSize:11, fontWeight:500, color:fg2, marginRight:6}}>
-              {w ? w.ar : 'جارٍ تحديث الطقس…'}
-            </span>
+      <div style={dashWrap}>
+        {/* Top row: icon + temp + condition + location + change */}
+        <div style={{display:'flex', alignItems:'center', gap:10}}>
+          <div style={{fontSize:30, lineHeight:1}}>{w ? w.icon : '⏳'}</div>
+          <div style={{flex:1, minWidth:0, display:'flex', flexDirection:'column', lineHeight:1.15}}>
+            <div style={{display:'flex', alignItems:'baseline', gap:6}}>
+              <div style={{fontSize:22, fontWeight:800, color:fg, letterSpacing:'-0.02em', fontFamily:'var(--font-latin)'}}>
+                {data ? `${data.temp}°` : '—'}
+              </div>
+              <div style={{fontSize:12, fontWeight:600, color:fg2}}>{w ? w.ar : 'جارٍ التحديث…'}</div>
+            </div>
+            <div style={{fontSize:11, color:fg2, fontWeight:500, marginTop:2, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
+              📍 {data ? data.place : 'يحدّد الموقع…'}
+            </div>
           </div>
-          <div style={{fontSize:10, color:fg2, fontWeight:500, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
-            📍 {data ? data.place : 'يحدّد الموقع…'}
-          </div>
+          <button onClick={() => setPicking(true)} style={{
+            all:'unset', cursor:'pointer',
+            padding:'6px 10px', borderRadius:99,
+            background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,12,0.05)',
+            fontSize:11, fontWeight:700, color:fg, flexShrink:0,
+          }}>تغيير</button>
         </div>
-        <button onClick={() => setPicking(true)} style={{
-          all:'unset', cursor:'pointer',
-          padding:'6px 10px', borderRadius:99,
-          background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(10,10,12,0.05)',
-          fontSize:11, fontWeight:700, color:fg,
-        }}>تغيير</button>
+
+        {/* Stats row: wind + humidity */}
+        {data && (
+          <div style={{display:'flex', gap:10, fontSize:11, color:fg2, fontWeight:600}}>
+            <div style={{display:'flex', alignItems:'center', gap:4}}>
+              <span>💨</span>
+              <span><span style={{fontFamily:'var(--font-latin)', color:fg, fontWeight:700}}>{data.wind ?? '—'}</span> كم/س</span>
+            </div>
+            <div style={{display:'flex', alignItems:'center', gap:4}}>
+              <span>💧</span>
+              <span><span style={{fontFamily:'var(--font-latin)', color:fg, fontWeight:700}}>{data.humidity ?? '—'}%</span> رطوبة</span>
+            </div>
+          </div>
+        )}
+
+        {/* Hourly timeline */}
+        {data && data.hours && data.hours.length > 0 && (
+          <div style={{
+            display:'flex', gap:6, overflowX:'auto', paddingTop:4,
+            marginTop:2, borderTop:`1px solid ${border}`, paddingBottom:2,
+          }}>
+            {data.hours.slice(0, 12).map((h, i) => {
+              const hw = WMO_MAP[h.code] || { icon:'🌡️' };
+              return (
+                <div key={i} style={{
+                  flex:'0 0 auto', display:'flex', flexDirection:'column',
+                  alignItems:'center', gap:3, padding:'6px 8px', minWidth:42,
+                  borderRadius:10, background: dark ? 'rgba(255,255,255,0.04)' : 'rgba(10,10,12,0.03)',
+                }}>
+                  <div style={{fontSize:9, color:fg2, fontWeight:600, fontFamily:'var(--font-latin)'}}>
+                    {i === 0 ? 'الآن' : fmtHour(h.time)}
+                  </div>
+                  <div style={{fontSize:16, lineHeight:1}}>{hw.icon}</div>
+                  <div style={{fontSize:11, color:fg, fontWeight:700, fontFamily:'var(--font-latin)'}}>{h.temp}°</div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       {picking && <SearchSheet/>}
     </>
